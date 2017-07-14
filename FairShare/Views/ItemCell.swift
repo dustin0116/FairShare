@@ -10,9 +10,18 @@ import UIKit
 
 
 protocol itemCheckList {
+    
     func getInfo(for row: Int, to value: Bool)
+    
 }
-
+//
+//protocol dataFromItemCell {
+//    
+//    var itemPrice: UITextField! {get set}
+//    
+//    func setItemPrice(title: Double)
+//    
+//}
 
 class ItemCell: UITableViewCell {
 
@@ -23,9 +32,10 @@ class ItemCell: UITableViewCell {
     var isChecked = true
     
     override func awakeFromNib() {
+        
         super.awakeFromNib()
+        
     }
-    
     
     @IBAction func itemCheckButtonTapped(_ sender: UIButton) {
         
