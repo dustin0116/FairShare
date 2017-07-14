@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UIKit
 
 class Item {
     
@@ -18,7 +17,6 @@ class Item {
     init(itemNumber: Int) {
         
         self.itemNumber = itemNumber
-        
     }
     
 }

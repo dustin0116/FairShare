@@ -14,14 +14,14 @@ protocol itemCheckList {
     func getInfo(for row: Int, to value: Bool)
     
 }
-//
-//protocol dataFromItemCell {
-//    
-//    var itemPrice: UITextField! {get set}
-//    
-//    func setItemPrice(title: Double)
-//    
-//}
+
+protocol dataFromItemCell {
+    
+    var itemPrice: UITextField! {get set}
+    
+    func setItemPrice(title: Double)
+    
+}
 
 class ItemCell: UITableViewCell {
 
@@ -42,9 +42,9 @@ class ItemCell: UITableViewCell {
         isChecked = !isChecked
         
         if self.isChecked {
-            sender.setImage(#imageLiteral(resourceName: "Select"), for: .normal)
-        } else {
             sender.setImage(#imageLiteral(resourceName: "Reveal"), for: .normal)
+        } else {
+            sender.setImage(#imageLiteral(resourceName: "Select"), for: .normal)
         }
     }
     

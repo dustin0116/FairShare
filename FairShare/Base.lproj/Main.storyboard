@@ -39,6 +39,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Button" image="Reveal"/>
                                                     <state key="selected" image="Select"/>
+                                                    <state key="highlighted" image="Select"/>
                                                     <connections>
                                                         <action selector="itemCheckButtonTapped:" destination="l09-Jb-UQZ" eventType="touchUpInside" id="0ZA-QC-RDW"/>
                                                     </connections>
@@ -194,6 +195,7 @@
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
+                                                    <action selector="calculateButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3Fm-PU-llX"/>
                                                     <segue destination="35G-Zm-9rd" kind="show" id="fKu-eJ-Uxa"/>
                                                 </connections>
                                             </button>

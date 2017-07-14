@@ -31,6 +31,10 @@ class HomeViewController: UIViewController {
     
     var activeField: UITextField?
     
+    var itemCells = [ItemCell]()
+    
+    var priceAmounts = [Double]()
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -50,7 +54,7 @@ class HomeViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true) //This will hide the keyboard
     }
-                                                                                                                                                            
+    
     func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
         {
@@ -92,8 +96,9 @@ class HomeViewController: UIViewController {
     @IBAction func addItemButton(_ sender: UIButton) {
         
         itemNumber += 1
+        items.append(Item(itemNumber: itemNumber))
         
-        items.append(Item.init(itemNumber: itemNumber))
+        isCheckedArray.append(true)
         
         print(items.count)
         
@@ -110,31 +115,40 @@ class HomeViewController: UIViewController {
         for _ in 1...5 {
             
             itemNumber += 1
-            items.append(Item.init(itemNumber: itemNumber))
+            items.append(Item(itemNumber: itemNumber))
+            isCheckedArray.append(true)
             print(items.count)
+            print(isCheckedArray.count)
+        }
+    }
+    
+    @IBAction func calculateButtonTapped(_ sender: UIButton) {
+        
+        priceAmounts.removeAll()
+        
+        for cell in itemCells {
             
+            if let priceAmount = Double(cell.itemPriceTextField.text!) {
+                
+                priceAmounts.append(priceAmount)
+                
+                print(priceAmount)
+                
+            } else {
+                
+                let aC = UIAlertController(title: "Error", message: "Invalid text for item price.", preferredStyle: .alert)
+                let okButton = UIAlertAction(title: "OK", style: .default, handler: nil)
+                aC.addAction(okButton)
+                present(aC, animated: true, completion: nil)
+                break
+            }
         }
-        
-        for _ in 0...items.count-1 {
-            self.isCheckedArray.append(true)
-        }
-        
     }
 }
-//
-//    @IBAction func calculateButtonTapped(_ sender: UIButton) {
-//        
-//        if let itemPrice = Double(){
-//            
-//            var tipPercentage = Double(tipSlider.value/100)
-//            
-//        }
-//        
-//
-//        
-//    }
-//}
 
+
+
+//MARK: -
 extension HomeViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -151,6 +165,7 @@ extension HomeViewController: UITableViewDataSource {
         cell.itemTitleTextLabel.text = item.itemLabel
         cell.itemNumberLabel.text = String(indexPath.row + 1)
         
+        itemCells.append(cell)
         
         return cell
     }
@@ -159,9 +174,10 @@ extension HomeViewController: UITableViewDataSource {
         
         if editingStyle == .delete {
             
+            itemCells.remove(at: indexPath.row)
             items.remove(at: indexPath.row)
-            
-            tableView.reloadData()
+            isCheckedArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
             
         }
     }
@@ -170,21 +186,11 @@ extension HomeViewController: UITableViewDataSource {
 extension HomeViewController: itemCheckList {
     
     func getInfo(for row: Int, to value: Bool) {
+        
         isCheckedArray[row] = value
+        
     }
 }
-//
-//extension HomeViewController: dataFromItemCell {
-////    
-////    func setItemPrice(title: Double) {
-////        
-////        itemPriceTextLabel.text = itemPrice
-////        
-////    }
-////    
-//    
-//    
-//}
 
 extension HomeViewController: UITextFieldDelegate
 {
