@@ -27,8 +27,6 @@ class HomeViewController: UIViewController {
     
     var globlaKeyboardSize: CGRect! = CGRect.zero
     
-    var isCheckedArray = [Bool]()
-    
     var activeField: UITextField?
     
     var itemCells = [ItemCell]()
@@ -95,12 +93,14 @@ class HomeViewController: UIViewController {
     
     @IBAction func addItemButton(_ sender: UIButton) {
         
-        itemNumber += 1
-        items.append(Item(itemNumber: itemNumber))
-        
-        isCheckedArray.append(true)
-        
+        items.append(Item(itemNumber: itemNumber, isChecked: false))
+                
         print(items.count)
+        itemNumber = 0
+        
+        for item in items {
+            item.itemNumber = itemNumber + 1
+        }
         
         tableView.reloadData()
         
@@ -115,10 +115,9 @@ class HomeViewController: UIViewController {
         for _ in 1...5 {
             
             itemNumber += 1
-            items.append(Item(itemNumber: itemNumber))
-            isCheckedArray.append(true)
+            items.append(Item(itemNumber: itemNumber, isChecked: false))
+            
             print(items.count)
-            print(isCheckedArray.count)
         }
     }
     
@@ -127,7 +126,7 @@ class HomeViewController: UIViewController {
         priceAmounts.removeAll()
         
         for cell in itemCells {
-            
+        
             if let priceAmount = Double(cell.itemPriceTextField.text!) {
                 
                 priceAmounts.append(priceAmount)
@@ -162,10 +161,21 @@ extension HomeViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemTableViewCell", for: indexPath) as! ItemCell
         let item = items[indexPath.row]
         
+        cell.delegate = self
+        cell.itemPriceTextField.delegate = self
+        
         cell.itemTitleTextLabel.text = item.itemLabel
         cell.itemNumberLabel.text = String(indexPath.row + 1)
+        cell.itemPriceTextField.text = String(format: "%.2f", item.itemPrice)
         
-        itemCells.append(cell)
+        if item.isChecked {
+            cell.isCheckedButton.setImage(#imageLiteral(resourceName: "Select"), for: .normal)
+        } else {
+            cell.isCheckedButton.setImage(#imageLiteral(resourceName: "Reveal"), for: .normal)
+        }
+
+        
+//        itemCells.append(cell)
         
         return cell
     }
@@ -174,20 +184,29 @@ extension HomeViewController: UITableViewDataSource {
         
         if editingStyle == .delete {
             
-            itemCells.remove(at: indexPath.row)
+//            itemCells.remove(at: indexPath.row)
             items.remove(at: indexPath.row)
-            isCheckedArray.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
             
+            itemNumber = 0
+            
+            for item in items {
+                item.itemNumber = itemNumber + 1
+            }
+            
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.reloadData()
         }
     }
 }
 
-extension HomeViewController: itemCheckList {
+extension HomeViewController: ItemCheckList {
     
-    func getInfo(for row: Int, to value: Bool) {
+    func getInfo(cell: ItemCell) {
         
-        isCheckedArray[row] = value
+        let itemAtThisCell = Item(itemNumber: Int(cell.itemNumberLabel.text!)!, isChecked: cell.isChecked)
+        
+        itemAtThisCell.isChecked = !itemAtThisCell.isChecked
+        
         
     }
 }
@@ -209,8 +228,7 @@ extension HomeViewController: UITextFieldDelegate
         return true
     }
     
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool
-    {
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         activeField = textField
         
         if textField.tag == 1 || textField.tag == 2 && globlaKeyboardSize.height != 0.0
@@ -222,5 +240,23 @@ extension HomeViewController: UITextFieldDelegate
         }
         
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("editing")
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let cellContentView = textField.superview as! UIView
+        let cell = cellContentView.superview as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)
+        
+        let itemAtThisCell = items[(indexPath?.row)!]
+        
+        if textField.text != "" {
+            itemAtThisCell.itemPrice = Double(textField.text!)!
+        } else {
+            itemAtThisCell.itemPrice = 0.0
+        }
     }
 }

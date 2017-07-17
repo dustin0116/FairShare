@@ -85,6 +85,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="isCheckedButton" destination="CSc-t5-njf" id="FNW-er-zSB"/>
                                             <outlet property="itemNumberLabel" destination="jHt-1F-0rE" id="uES-g8-TFO"/>
                                             <outlet property="itemPriceTextField" destination="A8P-h5-FMq" id="Xat-9w-OTT"/>
                                             <outlet property="itemTitleTextLabel" destination="6ZZ-VA-OFV" id="cNP-r4-a51"/>

@@ -9,17 +9,9 @@ import Foundation
 import UIKit
 
 
-protocol itemCheckList {
+protocol ItemCheckList: class {
     
-    func getInfo(for row: Int, to value: Bool)
-    
-}
-
-protocol dataFromItemCell {
-    
-    var itemPrice: UITextField! {get set}
-    
-    func setItemPrice(title: Double)
+    func getInfo(cell: ItemCell)
     
 }
 
@@ -28,8 +20,11 @@ class ItemCell: UITableViewCell {
     @IBOutlet weak var itemTitleTextLabel: UILabel!
     @IBOutlet weak var itemPriceTextField: UITextField!
     @IBOutlet weak var itemNumberLabel: UILabel!
+    @IBOutlet weak var isCheckedButton: UIButton!
     
-    var isChecked = true
+    var isChecked = false
+    
+    weak var delegate: ItemCheckList?
     
     override func awakeFromNib() {
         
@@ -39,13 +34,17 @@ class ItemCell: UITableViewCell {
     
     @IBAction func itemCheckButtonTapped(_ sender: UIButton) {
         
+        
+        delegate?.getInfo(cell: self)
+        
         isChecked = !isChecked
         
         if self.isChecked {
-            sender.setImage(#imageLiteral(resourceName: "Reveal"), for: .normal)
-        } else {
             sender.setImage(#imageLiteral(resourceName: "Select"), for: .normal)
+        } else {
+            sender.setImage(#imageLiteral(resourceName: "Reveal"), for: .normal)
         }
+        
     }
     
     
