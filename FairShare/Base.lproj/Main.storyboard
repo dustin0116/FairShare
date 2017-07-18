@@ -107,7 +107,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="304" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip 0%:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ibu-qT-13k">
-                                                        <rect key="frame" x="0.0" y="5" width="80" height="20"/>
+                                                        <rect key="frame" x="0.0" y="5" width="80" height="20.5"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="80" id="IRP-jK-pGa"/>
                                                         </constraints>
@@ -124,14 +124,11 @@
                                                     </slider>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="Bna-Ld-suv" secondAttribute="trailing" id="6ZM-uj-Mnd"/>
-                                                    <constraint firstItem="Ibu-qT-13k" firstAttribute="top" secondItem="pP9-XV-VAj" secondAttribute="top" constant="4.5" id="SP3-iN-MrT"/>
-                                                    <constraint firstItem="Ibu-qT-13k" firstAttribute="leading" secondItem="pP9-XV-VAj" secondAttribute="leading" id="Y71-hN-LSj"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Bna-Ld-suv" secondAttribute="bottom" id="K7F-4k-8d6"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Bna-Ld-suv" secondAttribute="trailing" id="ep8-UJ-nKZ"/>
                                                     <constraint firstItem="Bna-Ld-suv" firstAttribute="leading" secondItem="Ibu-qT-13k" secondAttribute="trailing" constant="14" id="fFM-GK-yqH"/>
-                                                    <constraint firstAttribute="height" constant="30" id="gOG-Ay-nKY"/>
-                                                    <constraint firstItem="Bna-Ld-suv" firstAttribute="top" secondItem="pP9-XV-VAj" secondAttribute="top" id="hi3-mB-5xG"/>
-                                                    <constraint firstAttribute="bottom" secondItem="Bna-Ld-suv" secondAttribute="bottom" id="qDP-Im-cRu"/>
-                                                    <constraint firstAttribute="bottom" secondItem="Ibu-qT-13k" secondAttribute="bottom" constant="5" id="xVS-F4-FFZ"/>
+                                                    <constraint firstItem="Bna-Ld-suv" firstAttribute="leading" secondItem="Ibu-qT-13k" secondAttribute="trailing" constant="14" id="jNX-t0-chL"/>
+                                                    <constraint firstItem="Bna-Ld-suv" firstAttribute="top" secondItem="pP9-XV-VAj" secondAttribute="top" id="zk6-FM-eDX"/>
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="100" translatesAutoresizingMaskIntoConstraints="NO" id="tq5-Va-PZ4" userLabel="Tax Amount Stack View">
@@ -197,20 +194,20 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="calculateButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3Fm-PU-llX"/>
-                                                    <segue destination="35G-Zm-9rd" kind="show" id="fKu-eJ-Uxa"/>
+                                                    <segue destination="35G-Zm-9rd" kind="show" identifier="calculate" id="fKu-eJ-Uxa"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="pP9-XV-VAj" secondAttribute="trailing" id="6CL-Kt-xeV"/>
+                                            <constraint firstItem="tq5-Va-PZ4" firstAttribute="top" secondItem="pP9-XV-VAj" secondAttribute="bottom" constant="20" id="ECg-Sb-c9w"/>
                                             <constraint firstItem="tq5-Va-PZ4" firstAttribute="leading" secondItem="7YE-Sj-L7h" secondAttribute="leading" id="HLo-Y5-kt5"/>
-                                            <constraint firstItem="pP9-XV-VAj" firstAttribute="top" secondItem="7YE-Sj-L7h" secondAttribute="top" id="Nhv-7T-Wv7"/>
+                                            <constraint firstAttribute="trailing" secondItem="pP9-XV-VAj" secondAttribute="trailing" id="NFs-a2-8VO"/>
                                             <constraint firstItem="Z1O-LD-Mbi" firstAttribute="centerX" secondItem="7YE-Sj-L7h" secondAttribute="centerX" id="ZL8-oA-Kjk"/>
-                                            <constraint firstItem="tq5-Va-PZ4" firstAttribute="top" secondItem="pP9-XV-VAj" secondAttribute="bottom" constant="20" id="bC5-Me-LoE"/>
                                             <constraint firstItem="R6z-h4-l5h" firstAttribute="top" secondItem="tq5-Va-PZ4" secondAttribute="bottom" constant="20" id="c7v-uC-Pqh"/>
                                             <constraint firstItem="R6z-h4-l5h" firstAttribute="leading" secondItem="7YE-Sj-L7h" secondAttribute="leading" id="dnE-yJ-eHA"/>
-                                            <constraint firstItem="pP9-XV-VAj" firstAttribute="leading" secondItem="7YE-Sj-L7h" secondAttribute="leading" id="e5j-cy-4hf"/>
                                             <constraint firstAttribute="trailing" secondItem="tq5-Va-PZ4" secondAttribute="trailing" id="e7l-Oq-xR5"/>
+                                            <constraint firstItem="pP9-XV-VAj" firstAttribute="top" secondItem="7YE-Sj-L7h" secondAttribute="top" id="kX8-2m-XUp"/>
+                                            <constraint firstItem="pP9-XV-VAj" firstAttribute="leading" secondItem="7YE-Sj-L7h" secondAttribute="leading" id="oBl-ZT-deN"/>
                                             <constraint firstAttribute="trailing" secondItem="R6z-h4-l5h" secondAttribute="trailing" id="yb9-u5-AzA"/>
                                         </constraints>
                                     </stackView>
@@ -275,7 +272,7 @@
         <!--Calculation Results View Controller-->
         <scene sceneID="AAt-Lg-4la">
             <objects>
-                <viewController id="35G-Zm-9rd" userLabel="Calculation Results View Controller" sceneMemberID="viewController">
+                <viewController id="35G-Zm-9rd" userLabel="Calculation Results View Controller" customClass="CalculationResultsViewController" customModule="FairShare" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ouH-7Q-mhH"/>
                         <viewControllerLayoutGuide type="bottom" id="RAx-VN-dis"/>
@@ -283,13 +280,41 @@
                     <view key="view" contentMode="scaleToFill" id="ZAb-iD-oyj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="2QJ-bN-KQH">
+                                <rect key="frame" x="25" y="269" width="270" height="30.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Amount:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6xg-Hg-sHB">
+                                        <rect key="frame" x="0.0" y="5" width="122.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9bE-Et-CQF" userLabel="Total Amount Text Field">
+                                        <rect key="frame" x="147.5" y="0.5" width="122.5" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2QJ-bN-KQH" firstAttribute="leading" secondItem="ZAb-iD-oyj" secondAttribute="leading" constant="25" id="9E9-yo-J01"/>
+                            <constraint firstItem="2QJ-bN-KQH" firstAttribute="top" secondItem="ouH-7Q-mhH" secondAttribute="bottom" constant="205" id="ReA-xt-mmQ"/>
+                            <constraint firstAttribute="trailing" secondItem="2QJ-bN-KQH" secondAttribute="trailing" constant="25" id="t97-KA-2CO"/>
+                            <constraint firstItem="RAx-VN-dis" firstAttribute="top" secondItem="2QJ-bN-KQH" secondAttribute="bottom" constant="268.5" id="vv4-Cc-OkC"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Results" id="ijI-Lt-ULG"/>
+                    <connections>
+                        <outlet property="totalAmountTextField" destination="9bE-Et-CQF" id="fy8-5S-0m7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tmb-w9-xiW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2014" y="138"/>
+            <point key="canvasLocation" x="2013.75" y="137.32394366197184"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7Wx-zl-G23">

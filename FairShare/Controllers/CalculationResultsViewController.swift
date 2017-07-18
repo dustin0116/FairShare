@@ -10,21 +10,16 @@ import UIKit
 
 class CalculationResultsViewController: UIViewController {
 
+    @IBOutlet weak var totalAmountTextField: UITextField!
     
-    
-    
-    
-    
-    
-    
-    
+    var calculatedAmount: Double = 0.0
     
     
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
+        totalAmountTextField.text = String(format: "%.2f", calculatedAmount)
 
         // Do any additional setup after loading the view.
     }

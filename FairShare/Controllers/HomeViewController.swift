@@ -33,6 +33,10 @@ class HomeViewController: UIViewController {
     
     var priceAmounts = [Double]()
     
+    var totalAmount: Double = 0.0
+    
+    var taxPlusTotalAmount: Double = 0.0
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -129,6 +133,28 @@ class HomeViewController: UIViewController {
         
             if let priceAmount = Double(cell.itemPriceTextField.text!) {
                 
+                let tipPercent = Double(tipSlider.value)
+                
+                print(tipPercent)
+                
+                let roundedPriceAmount = (100*priceAmount)/100
+                
+                print(roundedPriceAmount)
+                
+                let tipAmount = tipPercent*roundedPriceAmount
+                
+                
+                let roundedTipAmount = (100*tipAmount)/100
+                
+                print(roundedTipAmount)
+                
+                
+                totalAmount = roundedPriceAmount+roundedTipAmount
+                
+                taxPlusTotalAmount = totalAmount + Double(taxAmountTextField.text!)!
+                
+                print(taxPlusTotalAmount)
+                
                 priceAmounts.append(priceAmount)
                 
                 print(priceAmount)
@@ -140,7 +166,16 @@ class HomeViewController: UIViewController {
                 aC.addAction(okButton)
                 present(aC, animated: true, completion: nil)
                 break
+            
             }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "calculate" {
+            
+            let calculationResultsViewController = segue.destination as! CalculationResultsViewController
+            calculationResultsViewController.calculatedAmount = taxPlusTotalAmount
         }
     }
 }
@@ -166,7 +201,7 @@ extension HomeViewController: UITableViewDataSource {
         
         cell.itemTitleTextLabel.text = item.itemLabel
         cell.itemNumberLabel.text = String(indexPath.row + 1)
-        cell.itemPriceTextField.text = String(format: "%.2f", item.itemPrice)
+        cell.itemPriceTextField.text = String(format: "%.02f", item.itemPrice)
         
         if item.isChecked {
             cell.isCheckedButton.setImage(#imageLiteral(resourceName: "Select"), for: .normal)
@@ -243,20 +278,28 @@ extension HomeViewController: UITextFieldDelegate
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
         print("editing")
+        
+        
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        let cellContentView = textField.superview as! UIView
-        let cell = cellContentView.superview as! UITableViewCell
-        let indexPath = tableView.indexPath(for: cell)
-        
-        let itemAtThisCell = items[(indexPath?.row)!]
-        
-        if textField.text != "" {
-            itemAtThisCell.itemPrice = Double(textField.text!)!
+        let contentView = textField.superview as! UIView
+        if let cell = contentView.superview as? UITableViewCell {
+            let indexPath = tableView.indexPath(for: cell)
+            
+            let itemAtThisCell = items[(indexPath?.row)!]
+            
+            if textField.text != "" {
+                itemAtThisCell.itemPrice = Double(textField.text!)!
+            } else {
+                itemAtThisCell.itemPrice = 0.0
+            }
         } else {
-            itemAtThisCell.itemPrice = 0.0
+            print("not located in a cell")
         }
+
     }
 }
