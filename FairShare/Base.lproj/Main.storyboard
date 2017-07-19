@@ -256,8 +256,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addItemButton" destination="FFH-QV-Axe" id="t18-aL-A9Y"/>
+                        <outlet property="amountOfPeopleTextField" destination="mbO-3U-FLW" id="NXG-0H-ZjY"/>
                         <outlet property="calculateButton" destination="Z1O-LD-Mbi" id="Kv4-mH-MWw"/>
-                        <outlet property="numberOfPeopleTextField" destination="mbO-3U-FLW" id="LmA-eS-yRZ"/>
                         <outlet property="scanBillButton" destination="wUM-6y-NDQ" id="htL-J0-Ni8"/>
                         <outlet property="tableView" destination="x0A-Di-JNB" id="1Fs-7r-caU"/>
                         <outlet property="taxAmountTextField" destination="mOc-fw-Kqa" id="F2U-A0-Euk"/>
@@ -307,7 +307,9 @@
                             <constraint firstItem="RAx-VN-dis" firstAttribute="top" secondItem="2QJ-bN-KQH" secondAttribute="bottom" constant="268.5" id="vv4-Cc-OkC"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Results" id="ijI-Lt-ULG"/>
+                    <navigationItem key="navigationItem" title="Results" id="ijI-Lt-ULG">
+                        <barButtonItem key="rightBarButtonItem" title="Venmo" id="YNk-Tk-7aP"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="totalAmountTextField" destination="9bE-Et-CQF" id="fy8-5S-0m7"/>
                     </connections>

@@ -18,14 +18,14 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var tipPercentLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addItemButton: UIButton!
-    @IBOutlet weak var numberOfPeopleTextField: UITextField!
     @IBOutlet weak var taxAmountTextField: UITextField!
     @IBOutlet weak var calculateButton: UIButton!
     @IBOutlet weak var scanBillButton: UIButton!
+    @IBOutlet weak var amountOfPeopleTextField: UITextField!
     
     var isSelected = true
     
-    var globlaKeyboardSize: CGRect! = CGRect.zero
+    var globlalKeyboardSize: CGRect! = CGRect.zero
     
     var activeField: UITextField?
     
@@ -49,7 +49,7 @@ class HomeViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-        numberOfPeopleTextField.tag = 1
+        amountOfPeopleTextField.tag = 1
         taxAmountTextField.tag = 2
     }
     
@@ -60,7 +60,7 @@ class HomeViewController: UIViewController {
     func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
         {
-            globlaKeyboardSize = keyboardSize
+            globlalKeyboardSize = keyboardSize
             
             if let temporaryActiveField = activeField
             {
@@ -72,7 +72,7 @@ class HomeViewController: UIViewController {
     func keyboardWillHide(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
         {
-            globlaKeyboardSize = keyboardSize
+            globlalKeyboardSize = keyboardSize
             
             if let temporaryActiveField = activeField
             {
@@ -133,6 +133,11 @@ class HomeViewController: UIViewController {
         
             if let priceAmount = Double(cell.itemPriceTextField.text!) {
                 
+                if priceAmount == 0.0 {
+                    return
+                    
+                }
+                
                 let tipPercent = Double(tipSlider.value)
                 
                 print(tipPercent)
@@ -141,13 +146,12 @@ class HomeViewController: UIViewController {
                 
                 print(roundedPriceAmount)
                 
-                let tipAmount = tipPercent*roundedPriceAmount
+                let tipAmount = (tipPercent/100)*roundedPriceAmount
                 
                 
                 let roundedTipAmount = (100*tipAmount)/100
                 
                 print(roundedTipAmount)
-                
                 
                 totalAmount = roundedPriceAmount+roundedTipAmount
                 
@@ -169,6 +173,8 @@ class HomeViewController: UIViewController {
             
             }
         }
+        
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -210,7 +216,7 @@ extension HomeViewController: UITableViewDataSource {
         }
 
         
-//        itemCells.append(cell)
+        itemCells.append(cell)
         
         return cell
     }
@@ -219,7 +225,7 @@ extension HomeViewController: UITableViewDataSource {
         
         if editingStyle == .delete {
             
-//            itemCells.remove(at: indexPath.row)
+            itemCells.remove(at: indexPath.row)
             items.remove(at: indexPath.row)
             
             itemNumber = 0
@@ -252,11 +258,11 @@ extension HomeViewController: UITextFieldDelegate
     {
         activeField = textField
         
-        if textField.tag == 1 || textField.tag == 2 && globlaKeyboardSize.height != 0.0
+        if textField.tag == 1 || textField.tag == 2 && globlalKeyboardSize.height != 0.0
         {
             if self.view.frame.origin.y == 0
             {
-                self.view.frame.origin.y -= globlaKeyboardSize.height
+                self.view.frame.origin.y -= globlalKeyboardSize.height
             }
         }
         
@@ -266,11 +272,11 @@ extension HomeViewController: UITextFieldDelegate
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         activeField = textField
         
-        if textField.tag == 1 || textField.tag == 2 && globlaKeyboardSize.height != 0.0
+        if textField.tag == 1 || textField.tag == 2 && globlalKeyboardSize.height != 0.0
         {
             if self.view.frame.origin.y != 0
             {
-                self.view.frame.origin.y += globlaKeyboardSize.height
+                self.view.frame.origin.y += globlalKeyboardSize.height
             }
         }
         
