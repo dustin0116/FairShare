@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x0A-Di-JNB">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="275"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="342"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
@@ -98,10 +98,10 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJV-YA-m5R">
-                                <rect key="frame" x="0.0" y="283" width="320" height="285"/>
+                                <rect key="frame" x="0.0" y="350" width="320" height="218"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="7YE-Sj-L7h" userLabel="Super Stack View">
-                                        <rect key="frame" x="8" y="47" width="304" height="190"/>
+                                        <rect key="frame" x="8" y="8" width="304" height="190"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="pP9-XV-VAj" userLabel="Tip % Stack View">
                                                 <rect key="frame" x="0.0" y="0.0" width="304" height="30"/>
@@ -214,8 +214,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="7YE-Sj-L7h" secondAttribute="bottom" constant="48" id="C5p-l4-SDw"/>
-                                    <constraint firstItem="7YE-Sj-L7h" firstAttribute="top" secondItem="rJV-YA-m5R" secondAttribute="top" constant="47" id="rce-Yn-h1p"/>
+                                    <constraint firstAttribute="bottom" secondItem="7YE-Sj-L7h" secondAttribute="bottom" constant="20" id="C5p-l4-SDw"/>
+                                    <constraint firstItem="7YE-Sj-L7h" firstAttribute="top" secondItem="rJV-YA-m5R" secondAttribute="top" constant="8" id="rce-Yn-h1p"/>
                                     <constraint firstAttribute="trailing" secondItem="7YE-Sj-L7h" secondAttribute="trailing" constant="8" id="upo-NQ-aQZ"/>
                                     <constraint firstItem="7YE-Sj-L7h" firstAttribute="leading" secondItem="rJV-YA-m5R" secondAttribute="leading" constant="8" id="xop-zq-b7s"/>
                                 </constraints>
@@ -233,10 +233,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="FairShare" id="5vk-TE-7CJ">
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="camera" id="3UW-3M-M5S"/>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="qoe-nx-bfX"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="0x8-HW-cUx">
+                            <connections>
+                                <action selector="addItemBarButton:" destination="BYZ-38-t0r" id="nhS-dk-VHH"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addItemBarButton" destination="0x8-HW-cUx" id="ASH-G3-7C0"/>
                         <outlet property="amountOfPeopleTextField" destination="mbO-3U-FLW" id="NXG-0H-ZjY"/>
                         <outlet property="calculateButton" destination="Z1O-LD-Mbi" id="Kv4-mH-MWw"/>
                         <outlet property="tableView" destination="x0A-Di-JNB" id="1Fs-7r-caU"/>

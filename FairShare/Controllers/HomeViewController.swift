@@ -17,11 +17,10 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var tipSlider: UISlider!
     @IBOutlet weak var tipPercentLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var addItemButton: UIButton!
     @IBOutlet weak var taxAmountTextField: UITextField!
     @IBOutlet weak var calculateButton: UIButton!
-    @IBOutlet weak var scanBillButton: UIButton!
     @IBOutlet weak var amountOfPeopleTextField: UITextField!
+    @IBOutlet weak var addItemBarButton: UIBarButtonItem!
     
     var isSelected = true
     
@@ -43,8 +42,6 @@ class HomeViewController: UIViewController {
         self.intializeItems()
         
         calculateButton.layer.cornerRadius = 6
-        addItemButton.layer.cornerRadius = 6
-        scanBillButton.layer.cornerRadius = 6
         
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -95,10 +92,10 @@ class HomeViewController: UIViewController {
         
     }
     
-    @IBAction func addItemButton(_ sender: UIButton) {
+    @IBAction func addItemBarButton(_ sender: UIBarButtonItem) {
         
         items.append(Item(itemNumber: itemNumber, isChecked: false))
-                
+        
         print(items.count)
         itemNumber = 0
         
@@ -111,7 +108,6 @@ class HomeViewController: UIViewController {
         let lastRowIndexPath = IndexPath(row: items.count-1, section: 0)
         
         tableView.scrollToRow(at: lastRowIndexPath, at: .none, animated: true)
-        
     }
     
     func intializeItems() {
