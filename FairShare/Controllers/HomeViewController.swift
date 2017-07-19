@@ -127,14 +127,17 @@ class HomeViewController: UIViewController {
     
     @IBAction func calculateButtonTapped(_ sender: UIButton) {
         
+        taxPlusTotalAmount = 0.0
+        
         priceAmounts.removeAll()
         
         for cell in itemCells {
         
             if let priceAmount = Double(cell.itemPriceTextField.text!) {
                 
-                if priceAmount == 0.0 {
-                    return
+                if priceAmount == 0.0 || cell.isChecked == false {
+                    
+                    continue
                     
                 }
                 
@@ -155,7 +158,7 @@ class HomeViewController: UIViewController {
                 
                 totalAmount = roundedPriceAmount+roundedTipAmount
                 
-                taxPlusTotalAmount = totalAmount + Double(taxAmountTextField.text!)!
+                taxPlusTotalAmount += totalAmount
                 
                 print(taxPlusTotalAmount)
                 
@@ -174,7 +177,7 @@ class HomeViewController: UIViewController {
             }
         }
         
-        
+        taxPlusTotalAmount += Double(taxAmountTextField.text!)!
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -227,7 +230,6 @@ extension HomeViewController: UITableViewDataSource {
             
             itemCells.remove(at: indexPath.row)
             items.remove(at: indexPath.row)
-            
             itemNumber = 0
             
             for item in items {

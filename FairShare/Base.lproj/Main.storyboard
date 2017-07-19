@@ -101,7 +101,7 @@
                                 <rect key="frame" x="0.0" y="283" width="320" height="285"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="7YE-Sj-L7h" userLabel="Super Stack View">
-                                        <rect key="frame" x="8" y="71" width="304" height="190"/>
+                                        <rect key="frame" x="8" y="47" width="304" height="190"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="pP9-XV-VAj" userLabel="Tip % Stack View">
                                                 <rect key="frame" x="0.0" y="0.0" width="304" height="30"/>
@@ -211,30 +211,11 @@
                                             <constraint firstAttribute="trailing" secondItem="R6z-h4-l5h" secondAttribute="trailing" id="yb9-u5-AzA"/>
                                         </constraints>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wUM-6y-NDQ">
-                                        <rect key="frame" x="8" y="16" width="78" height="36"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Scan Bill">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FFH-QV-Axe">
-                                        <rect key="frame" x="234" y="16" width="78" height="36"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Add Item">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="addItemButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LOd-4u-mp8"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="7YE-Sj-L7h" secondAttribute="bottom" constant="24" id="C5p-l4-SDw"/>
-                                    <constraint firstItem="7YE-Sj-L7h" firstAttribute="top" secondItem="rJV-YA-m5R" secondAttribute="top" constant="71" id="rce-Yn-h1p"/>
+                                    <constraint firstAttribute="bottom" secondItem="7YE-Sj-L7h" secondAttribute="bottom" constant="48" id="C5p-l4-SDw"/>
+                                    <constraint firstItem="7YE-Sj-L7h" firstAttribute="top" secondItem="rJV-YA-m5R" secondAttribute="top" constant="47" id="rce-Yn-h1p"/>
                                     <constraint firstAttribute="trailing" secondItem="7YE-Sj-L7h" secondAttribute="trailing" constant="8" id="upo-NQ-aQZ"/>
                                     <constraint firstItem="7YE-Sj-L7h" firstAttribute="leading" secondItem="rJV-YA-m5R" secondAttribute="leading" constant="8" id="xop-zq-b7s"/>
                                 </constraints>
@@ -252,13 +233,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="FairShare" id="5vk-TE-7CJ">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="ejE-Xe-4Pc"/>
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="camera" id="3UW-3M-M5S"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="qoe-nx-bfX"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="addItemButton" destination="FFH-QV-Axe" id="t18-aL-A9Y"/>
                         <outlet property="amountOfPeopleTextField" destination="mbO-3U-FLW" id="NXG-0H-ZjY"/>
                         <outlet property="calculateButton" destination="Z1O-LD-Mbi" id="Kv4-mH-MWw"/>
-                        <outlet property="scanBillButton" destination="wUM-6y-NDQ" id="htL-J0-Ni8"/>
                         <outlet property="tableView" destination="x0A-Di-JNB" id="1Fs-7r-caU"/>
                         <outlet property="taxAmountTextField" destination="mOc-fw-Kqa" id="F2U-A0-Euk"/>
                         <outlet property="tipPercentLabel" destination="Ibu-qT-13k" id="LIl-VK-JDk"/>
