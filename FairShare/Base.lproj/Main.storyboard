@@ -101,7 +101,7 @@
                                 <rect key="frame" x="0.0" y="286" width="320" height="218"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="7YE-Sj-L7h" userLabel="Super Stack View">
-                                        <rect key="frame" x="8" y="8" width="304" height="190"/>
+                                        <rect key="frame" x="8" y="0.0" width="304" height="190"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="pP9-XV-VAj" userLabel="Tip % Stack View">
                                                 <rect key="frame" x="0.0" y="0.0" width="304" height="30"/>
@@ -158,7 +158,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R6z-h4-l5h" userLabel="Amount of People Stack View">
                                                 <rect key="frame" x="0.0" y="100" width="304" height="30"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount of People:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6NE-Bs-JmU">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of People:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6NE-Bs-JmU">
                                                         <rect key="frame" x="0.0" y="0.0" width="202" height="30"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -216,8 +216,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="7YE-Sj-L7h" secondAttribute="bottom" constant="20" id="C5p-l4-SDw"/>
-                                    <constraint firstItem="7YE-Sj-L7h" firstAttribute="top" secondItem="rJV-YA-m5R" secondAttribute="top" constant="8" id="rce-Yn-h1p"/>
+                                    <constraint firstAttribute="bottom" secondItem="7YE-Sj-L7h" secondAttribute="bottom" constant="28" id="C5p-l4-SDw"/>
+                                    <constraint firstItem="7YE-Sj-L7h" firstAttribute="top" secondItem="rJV-YA-m5R" secondAttribute="top" id="rce-Yn-h1p"/>
                                     <constraint firstAttribute="trailing" secondItem="7YE-Sj-L7h" secondAttribute="trailing" constant="8" id="upo-NQ-aQZ"/>
                                     <constraint firstItem="7YE-Sj-L7h" firstAttribute="leading" secondItem="rJV-YA-m5R" secondAttribute="leading" constant="8" id="xop-zq-b7s"/>
                                 </constraints>
@@ -235,6 +235,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="FairShare" id="5vk-TE-7CJ">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="FL5-R0-5eu">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" systemItem="camera" id="5lz-hT-JsU">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="0x8-HW-cUx">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -259,7 +265,7 @@
         <!--Calculation Results View Controller-->
         <scene sceneID="AAt-Lg-4la">
             <objects>
-                <viewController id="35G-Zm-9rd" userLabel="Calculation Results View Controller" customClass="CalculationResultsViewController" customModule="FairShare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="flipHorizontal" id="35G-Zm-9rd" userLabel="Calculation Results View Controller" customClass="CalculationResultsViewController" customModule="FairShare" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ouH-7Q-mhH"/>
                         <viewControllerLayoutGuide type="bottom" id="RAx-VN-dis"/>
@@ -294,11 +300,8 @@
                             <constraint firstItem="RAx-VN-dis" firstAttribute="top" secondItem="2QJ-bN-KQH" secondAttribute="bottom" constant="268.5" id="vv4-Cc-OkC"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Results" id="ijI-Lt-ULG">
-                        <barButtonItem key="backBarButtonItem" title="Back" style="done" id="SoH-k8-xqc">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Results" id="ijI-Lt-ULG"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
                     <connections>
                         <outlet property="totalAmountTextField" destination="9bE-Et-CQF" id="fy8-5S-0m7"/>
                     </connections>
@@ -310,12 +313,13 @@
         <!--Navigation Controller-->
         <scene sceneID="7Wx-zl-G23">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FjA-qy-SM9" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="flipHorizontal" id="FjA-qy-SM9" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="z3N-Gq-ZJt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.28627450980392155" green="0.60392156862745094" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -332,4 +336,5 @@
         <image name="Reveal" width="46" height="44"/>
         <image name="Select" width="46" height="44"/>
     </resources>
+    <color key="tintColor" red="0.42608222365379333" green="0.66284388303756714" blue="0.84318649768829346" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
 </document>
