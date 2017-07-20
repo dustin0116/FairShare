@@ -19,8 +19,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var taxAmountTextField: UITextField!
     @IBOutlet weak var calculateButton: UIButton!
-    @IBOutlet weak var amountOfPeopleTextField: UITextField!
-    @IBOutlet weak var addItemBarButton: UIBarButtonItem!
+    @IBOutlet weak var numberOfPeopleTextField: UITextField!
+    @IBOutlet weak var addItemButton: UIButton!
     
     var isSelected = true
     
@@ -46,8 +46,11 @@ class HomeViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-        amountOfPeopleTextField.tag = 1
+        numberOfPeopleTextField.tag = 1
         taxAmountTextField.tag = 2
+        
+        numberOfPeopleTextField.delegate = self
+        taxAmountTextField.delegate = self
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -92,7 +95,7 @@ class HomeViewController: UIViewController {
         
     }
     
-    @IBAction func addItemBarButton(_ sender: UIBarButtonItem) {
+    @IBAction func addItemButtonTapped(_ sender: UIButton) {
         
         items.append(Item(itemNumber: itemNumber, isChecked: false))
         
@@ -146,7 +149,6 @@ class HomeViewController: UIViewController {
                 print(roundedPriceAmount)
                 
                 let tipAmount = (tipPercent/100)*roundedPriceAmount
-                
                 
                 let roundedTipAmount = (100*tipAmount)/100
                 
@@ -203,7 +205,6 @@ extension HomeViewController: UITableViewDataSource {
         
         cell.delegate = self
         cell.itemPriceTextField.delegate = self
-        
         cell.itemTitleTextLabel.text = item.itemLabel
         cell.itemNumberLabel.text = String(indexPath.row + 1)
         cell.itemPriceTextField.text = String(format: "%.02f", item.itemPrice)
@@ -290,7 +291,6 @@ extension HomeViewController: UITextFieldDelegate
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
         let contentView = textField.superview as! UIView
         if let cell = contentView.superview as? UITableViewCell {
             let indexPath = tableView.indexPath(for: cell)
