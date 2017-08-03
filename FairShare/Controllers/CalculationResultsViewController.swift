@@ -12,14 +12,23 @@ class CalculationResultsViewController: UIViewController {
 
     @IBOutlet weak var totalAmountTextField: UITextField!
     
+    @IBOutlet weak var amountPerPersonTextField: UITextField!
+    
+    @IBOutlet weak var totalSplittedEquallyTextField: UITextField!
+    
     var calculatedAmount: Double = 0.0
     
+    var amountPerPerson: Double = 0.0
+    
+    var calculatedAmountSplitted: Double = 0.0
     
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         totalAmountTextField.text = String(format: "%.2f", calculatedAmount)
+        amountPerPersonTextField.text = String(format: "%.2f", amountPerPerson)
+        totalSplittedEquallyTextField.text = String(format: "%.2f", calculatedAmountSplitted)
 
         // Do any additional setup after loading the view.
     }

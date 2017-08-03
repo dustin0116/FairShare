@@ -10,18 +10,15 @@ import Foundation
 
 class Item {
     
-    var isChecked = false
-    
+    var isChecked: Bool
     var itemLabel = "Item"
-    
     var itemNumber: Int
-    
     var itemPrice: Double = 0.0
     
-    init(itemNumber: Int, isChecked: Bool) {
+    init(itemNumber: Int, isChecked: Bool, itemPrice: Double = 0.0) {
         
         self.isChecked = isChecked
         self.itemNumber = itemNumber
+        self.itemPrice = itemPrice
     }
-    
 }
