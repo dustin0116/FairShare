@@ -7,9 +7,12 @@
 //  Copyright © 2017 Dustin Hsiang. All rights reserved.
 //
 import UIKit
+import Answers
+import Fabric
 
 class HomeViewController: UIViewController {
-    
+
+//MARK: - Variables
     @IBOutlet weak var tipSlider: UISlider!
     @IBOutlet weak var tipPercentLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -19,14 +22,19 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var removeAllButton: UIButton!
     @IBOutlet weak var numberOfPeopleLabel:  UILabel!
     @IBOutlet weak var numberOfPeopleStepper: UIStepper!
-    @IBOutlet weak var scanButton: UIBarButtonItem!
     @IBOutlet weak var taxInputTypeSelector: UISegmentedControl!
+    
+    var prevButton = UIBarButtonItem(title: "<", style: .plain, target: self, action: #selector(prevAction))
+    
+    var nextButton = UIBarButtonItem(title: ">", style: .plain, target: self, action: #selector(nextAction))
     
     var globlalKeyboardSize: CGRect! = CGRect.zero
     
     var activeField: UITextField?
     
     var items = [Item]()
+    
+    var textFields = [UITextField]()
     
     var itemPrices = [String]()
     
@@ -51,7 +59,9 @@ class HomeViewController: UIViewController {
     var allItemsPlusTaxAmount: Double = 0.0
     
     var allItemsSplittedEqually: Double = 0.0
-    
+
+
+//MARK: - Functions
     
     override func viewDidLoad() {
         
@@ -66,10 +76,36 @@ class HomeViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-        taxAmountTextField.tag = 1
+        taxAmountTextField.tag = -100
         
         self.addDoneButtonOnKeyboard()
         
+    }
+    
+    func nextAction() {
+        
+//        let newTag: Int = tag + 1
+//        if (self.delegate?.responds(to: Selector(("textField:moveToTextFieldWithTag:"))))! {
+//            (delegate as! TableViewCellTextFieldDelegate).textField(self, moveToTextFieldWithTag: newTag)
+//        }
+//        else {
+//            
+//            endEditing(true)
+//            
+//        }
+    }
+    
+    func prevAction() {
+//        
+//        let newTag: Int = tag - 1
+//        if (delegate?.responds(to: Selector(("textField:moveToTextFieldWithTag:"))))! {
+//            (delegate as! TableViewCellTextFieldDelegate).textField(self, moveToTextFieldWithTag: newTag)
+//            
+//        } else {
+//            
+//            endEditing(true)
+//            
+//        }
     }
     
     func addDoneButtonOnKeyboard() {
@@ -173,6 +209,23 @@ class HomeViewController: UIViewController {
         }
     }
     
+//    func nextButtonTapped(_ sender: UIBarButtonItem) {
+//        
+//        for i in 0..<textFields.count {
+//            
+//            if textFields[i].isFirstResponder {
+//                
+//                textFields[i+1].becomeFirstResponder()
+//                
+//            }
+//        }
+//    }
+//    
+//    func previousButtonTapped(_ sender: UIBarButtonItem) {
+//        
+//        
+//    }
+    
 //MARK: - Buttons
     
     @IBAction func addItemButtonTapped(_ sender: UIBarButtonItem) {
@@ -191,13 +244,6 @@ class HomeViewController: UIViewController {
             item.itemNumber = itemNumber + 1
         }
         
-//        let indexPath = NSIndexPath(row: items.count, section: 0)
-//        tableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
-//        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: {
-//            self.tableView.reloadData()
-//        })
-        
         tableView.reloadData()
         
         let lastRowIndexPath = IndexPath(row: items.count - 1, section: 0)
@@ -207,19 +253,34 @@ class HomeViewController: UIViewController {
     
     @IBAction func removeAllButtonTapped(_ sender: UIButton) {
         
-        items.removeAll()
+        let aC = UIAlertController(title: "Remove All Items", message: "Are you sure you want to remove all items?", preferredStyle: .alert)
         
-        itemPrices.removeAll()
+        let yesButton = UIAlertAction(title: "Yes", style: .default, handler: {(action: UIAlertAction!) in
+            
+            self.items.removeAll()
+            
+            self.itemPrices.removeAll()
+            
+            self.checkButtons.removeAll()
+            
+            let range = NSMakeRange(0, self.tableView.numberOfSections)
+            let sections = NSIndexSet(indexesIn: range)
+            self.tableView.reloadSections(sections as IndexSet, with: .fade)
+            
+            self.tableView.rowHeight = 53
+            
+            print("Items: \(self.items.count)")
+        })
         
-        checkButtons.removeAll()
         
-        let range = NSMakeRange(0, self.tableView.numberOfSections)
-        let sections = NSIndexSet(indexesIn: range)
-        self.tableView.reloadSections(sections as IndexSet, with: .fade)
+        let noButton = UIAlertAction(title: "No", style: .cancel, handler: nil)
         
-        tableView.rowHeight = 53
+        aC.addAction(yesButton)
+        aC.addAction(noButton)
         
-        print("Items: \(items.count)")
+        present(aC, animated: true, completion: nil)
+        
+
     }
     
     @IBAction func calculateButtonTapped(_ sender: UIButton) {
@@ -342,6 +403,13 @@ class HomeViewController: UIViewController {
             
         }
         
+        if segue.identifier == "about" {
+            
+          _ = segue.destination as! AboutViewController
+        }
+        
+        Answers.logCustomEvent(withName: "User Calculates", customAttributes: nil)
+        
     }
     
 }
@@ -372,11 +440,16 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         cell.row = row
         cell.delegate = self
         cell.itemPriceTextField.delegate = self
+//        cell.itemPriceTextField.moveTextFieldDelegate = self
+        cell.tag = indexPath.row + 1
+        cell.itemPriceTextField.tag = indexPath.row + 1
         cell.itemTitleTextLabel.text = item.itemLabel
         cell.itemNumberLabel.text = String(indexPath.row + 1)
         cell.itemPriceTextField.text = String(format: "%.02f", item.itemPrice)
         cell.item = item
         cell.isChecked = item.isChecked
+        
+        textFields.append(cell.itemPriceTextField)
         
         if item.isChecked == true {
             
@@ -436,14 +509,46 @@ extension HomeViewController: ItemCheckList {
     }
 }
 
+extension HomeViewController: TableViewCellTextFieldDelegate {
+    
+    func textField(_ textField: TableViewCellTextField, moveToTextFieldWithTag tag: Int) {
+        
+        let celda: UITableViewCell = self.tableView.viewWithTag(tag) as! UITableViewCell
+        let nextResponder: UIResponder? = celda.contentView.viewWithTag(tag)
+        if nextResponder != nil {
+            nextResponder?.becomeFirstResponder()
+        }
+        else {
+            textField.resignFirstResponder()
+        }
+    }
+    
+    
+
+}
+
 extension HomeViewController: UITextFieldDelegate
 {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
     {
         
+//        if textField.tag != -100 {
+//            
+//            let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+//            toolbar.barStyle = UIBarStyle.default
+//            toolbar.sizeToFit()
+//            
+//            toolbar.setItems([nextButton, prevButton], animated: false)
+//            
+//            toolbar.isUserInteractionEnabled = true
+//            
+//            textField.inputAccessoryView = toolbar
+//        }
+
+        
         activeField = textField
         
-        if (textField.tag == 1) && globlalKeyboardSize.height != 0.0
+        if (textField.tag == -100) && globlalKeyboardSize.height != 0.0
         {
             if self.view.frame.origin.y == 64
             {
@@ -460,7 +565,7 @@ extension HomeViewController: UITextFieldDelegate
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         activeField = textField
         
-        if (textField.tag == 1) && globlalKeyboardSize.height != 0.0
+        if (textField.tag == -100) && globlalKeyboardSize.height != 0.0
         {
             if self.view.frame.origin.y != 64
             {
@@ -522,25 +627,39 @@ extension HomeViewController: UITextFieldDelegate
     
 }
 
-extension UITextField {
-    
-    open override func awakeFromNib() {
-        super.awakeFromNib()
-        self.addHideinputAccessoryView()
-    }
-    
-    func addHideinputAccessoryView() {
-        
-        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
-        toolbar.barStyle = UIBarStyle.default
-        toolbar.sizeToFit()
-        let barButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done,
-                                   target: self, action: #selector(self.resignFirstResponder))
-        toolbar.setItems([barButtonItem], animated: true)
-        
-//        let nextButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: )
-        
-        self.inputAccessoryView = toolbar
-        
-    }
-}
+//extension UITextField {
+//    
+//    open override func awakeFromNib() {
+//        
+//        super.awakeFromNib()
+//        self.addHideinputAccessoryView()
+//        
+//    }
+//    
+//    func addHideinputAccessoryView() {
+//        
+//        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+//        toolbar.barStyle = UIBarStyle.default
+//        toolbar.sizeToFit()
+//        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done,
+//                                         
+//                                         target: self, action: #selector(self.resignFirstResponder))
+//        
+//        toolbar.setItems([doneButton], animated: true)
+//        
+//        let flexibleSpaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+//        let fixedSpaceButton = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+//        
+//        let nextButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(TableViewCellTextField.nextAction))
+//        
+//        let previousButton = UIBarButtonItem(title: "Prev", style: .plain, target: self, action: #selector(TableViewCellTextField.prevAction))
+//        
+//        toolbar.setItems([doneButton, flexibleSpaceButton, previousButton, fixedSpaceButton, nextButton], animated: false)
+//        
+//        toolbar.isUserInteractionEnabled = true
+//        
+//        self.inputAccessoryView = toolbar
+//
+//    }
+//    
+//}

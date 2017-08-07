@@ -1,0 +1,6 @@
+framework module Pods_FairShare {
+  umbrella header "Pods-FairShare-umbrella.h"
+
+  export *
+  module * { export * }
+}
