@@ -74,8 +74,6 @@ class HomeViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-        taxAmountTextField.tag = -100
-        
         self.addDoneButtonOnKeyboard()
         
     }
@@ -85,6 +83,7 @@ class HomeViewController: UIViewController {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
         doneToolbar.barStyle       = UIBarStyle.default
         let done: UIBarButtonItem  = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(HomeViewController.doneButtonAction))
+        
         done.tintColor = UIColor(red:0.43, green:0.66, blue:0.84, alpha:1.0)
         
         doneToolbar.isTranslucent = false
@@ -105,16 +104,9 @@ class HomeViewController: UIViewController {
         
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        self.view.endEditing(true) //This will hide the keyboard
-        
-    }
-
     func keyboardWillShow(notification : NSNotification) {
         
         if taxAmountTextField.isFirstResponder {
-        
         
         let keyboardInfo : NSDictionary = notification.userInfo! as NSDictionary
         
@@ -140,7 +132,7 @@ class HomeViewController: UIViewController {
     
     func keyboardWillHide(notification : NSNotification) {
         
-        if taxAmountTextField.isFirstResponder {
+        if taxAmountTextField.resignFirstResponder() {
             
             let keyboardInfo : NSDictionary = notification.userInfo! as NSDictionary
             
@@ -208,8 +200,6 @@ class HomeViewController: UIViewController {
         
         if taxInputTypeSelector.selectedSegmentIndex == 0 {
             taxAmountTextField.text = "0.00"
-        } else if taxInputTypeSelector.selectedSegmentIndex == 1 {
-            taxAmountTextField.text = "0"
         }
     }
     
@@ -220,7 +210,7 @@ class HomeViewController: UIViewController {
     
     
     
-//MARK: - Buttons
+    //MARK: - Buttons
     
     @IBAction func addItemButtonTapped(_ sender: UIBarButtonItem) {
         
@@ -519,14 +509,6 @@ extension HomeViewController: ItemCheckList {
 }
 
 extension HomeViewController: UITextFieldDelegate {
-
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        
-        textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
-        print("editing")
-        
-        
-    }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         let contentView = textField.superview!
@@ -555,13 +537,15 @@ extension HomeViewController: UITextFieldDelegate {
                 
             }
         }
-        if taxAmountTextField.text == "" && taxInputTypeSelector.selectedSegmentIndex == 0 {
+        
+        if taxAmountTextField.text == "" {
             
             taxAmountTextField.text = "0.00"
+        }
+        
+        if textField.text == "" {
             
-        } else if taxAmountTextField.text == "" && taxInputTypeSelector.selectedSegmentIndex == 1 {
-            
-            taxAmountTextField.text = "0"
+            textField.text = "0.00"
             
         }
     }
