@@ -20,7 +20,7 @@ protocol ItemCheckList: class {
 class ItemCell: UITableViewCell {
 
     @IBOutlet weak var itemTitleTextLabel: UILabel!
-    @IBOutlet weak var itemPriceTextField: TableViewCellTextField!
+    @IBOutlet weak var itemPriceTextField: UITextField!
     @IBOutlet var isCheckedButton: UIButton!
     @IBOutlet weak var itemNumberLabel: UILabel!
     

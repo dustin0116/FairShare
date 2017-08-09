@@ -9,6 +9,6 @@ target 'FairShare' do
 
 use_frameworks!
 pod 'Fabric'
-pod 'Answers'
+pod ‘Crashlytics’
 
 end

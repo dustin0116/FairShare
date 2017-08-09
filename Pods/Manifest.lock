@@ -1,16 +1,16 @@
 PODS:
-  - Answers (1.3.5):
+  - Crashlytics (3.8.5):
     - Fabric (~> 1.6.3)
   - Fabric (1.6.12)
 
 DEPENDENCIES:
-  - Answers
+  - Crashlytics
   - Fabric
 
 SPEC CHECKSUMS:
-  Answers: 567cbf43974855481b648db06692a3530de6b16e
+  Crashlytics: dfbae35ef22ca189240d230ad501feea4ee85d2d
   Fabric: f050464eac45a2ce5a8e6e6a07e977c0df32fe28
 
-PODFILE CHECKSUM: 57c91660786bf745da4d23d41d2133f4a9b2fa71
+PODFILE CHECKSUM: 0673454925acf75e39c30d652cd94fd37d9d8d50
 
 COCOAPODS: 1.2.1
