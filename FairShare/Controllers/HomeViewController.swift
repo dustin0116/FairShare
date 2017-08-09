@@ -12,7 +12,7 @@ import Fabric
 
 class HomeViewController: UIViewController {
 
-//MARK: - Variables
+//MARK: - IBOutlet Variables
     @IBOutlet weak var tipSlider: UISlider!
     @IBOutlet weak var tipPercentLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -25,7 +25,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var taxInputTypeSelector: UISegmentedControl!
     @IBOutlet weak var wholeBottomHalfView: UIView!
     
-    
+//MARK: - Variables
     var globlalKeyboardSize: CGRect! = CGRect.zero
     
     var activeField: UITextField?
@@ -101,6 +101,12 @@ class HomeViewController: UIViewController {
     func doneButtonAction() {
         
         self.taxAmountTextField.resignFirstResponder()
+        
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        taxAmountTextField.resignFirstResponder()
         
     }
 

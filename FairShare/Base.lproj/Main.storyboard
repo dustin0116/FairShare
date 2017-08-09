@@ -254,7 +254,7 @@
                                             <constraint firstItem="7gT-Sl-Ft2" firstAttribute="leading" secondItem="bg7-jM-M1J" secondAttribute="leading" id="8h9-yT-Jem"/>
                                             <constraint firstAttribute="trailing" secondItem="dCo-HE-b7u" secondAttribute="trailing" id="MAK-Zo-bP9"/>
                                             <constraint firstItem="dCo-HE-b7u" firstAttribute="top" relation="lessThanOrEqual" secondItem="6dA-0M-tJx" secondAttribute="bottom" constant="40" id="SMn-SR-JjU"/>
-                                            <constraint firstItem="Z1O-LD-Mbi" firstAttribute="top" relation="lessThanOrEqual" secondItem="7gT-Sl-Ft2" secondAttribute="bottom" constant="45" id="XSE-NQ-TzR"/>
+                                            <constraint firstItem="Z1O-LD-Mbi" firstAttribute="top" relation="lessThanOrEqual" secondItem="7gT-Sl-Ft2" secondAttribute="bottom" constant="60" id="XSE-NQ-TzR"/>
                                             <constraint firstItem="pbO-F3-hek" firstAttribute="top" relation="lessThanOrEqual" secondItem="dCo-HE-b7u" secondAttribute="bottom" constant="60" id="cXp-QN-Vr6"/>
                                             <constraint firstAttribute="trailing" secondItem="pbO-F3-hek" secondAttribute="trailing" id="dzD-6M-s1Z"/>
                                             <constraint firstItem="pbO-F3-hek" firstAttribute="leading" secondItem="bg7-jM-M1J" secondAttribute="leading" id="fSQ-DU-tr4"/>
@@ -262,7 +262,7 @@
                                             <constraint firstItem="dCo-HE-b7u" firstAttribute="leading" secondItem="bg7-jM-M1J" secondAttribute="leading" id="o1O-uC-5Dv"/>
                                             <constraint firstAttribute="bottom" secondItem="Z1O-LD-Mbi" secondAttribute="bottom" id="pFt-iu-R2Y"/>
                                             <constraint firstAttribute="trailing" secondItem="7gT-Sl-Ft2" secondAttribute="trailing" id="pjB-fN-97w"/>
-                                            <constraint firstItem="7gT-Sl-Ft2" firstAttribute="top" relation="lessThanOrEqual" secondItem="pbO-F3-hek" secondAttribute="bottom" constant="55" id="zuM-4s-fDZ"/>
+                                            <constraint firstItem="7gT-Sl-Ft2" firstAttribute="top" relation="lessThanOrEqual" secondItem="pbO-F3-hek" secondAttribute="bottom" constant="60" id="zuM-4s-fDZ"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
@@ -270,9 +270,10 @@
                                 <color key="tintColor" red="0.42608222365379333" green="0.66284388303756714" blue="0.84318649768829346" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="bg7-jM-M1J" firstAttribute="top" secondItem="rJV-YA-m5R" secondAttribute="top" id="A5N-sZ-74p"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="bg7-jM-M1J" secondAttribute="bottom" constant="25" id="Iuc-au-NPN"/>
+                                    <constraint firstAttribute="bottomMargin" relation="lessThanOrEqual" secondItem="bg7-jM-M1J" secondAttribute="bottom" constant="25" id="Iuc-au-NPN"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="bg7-jM-M1J" secondAttribute="trailing" constant="15" id="bCx-ez-vc3"/>
                                     <constraint firstItem="bg7-jM-M1J" firstAttribute="leading" secondItem="rJV-YA-m5R" secondAttribute="leadingMargin" constant="15" id="eX2-ed-2zW"/>
+                                    <constraint firstAttribute="width" secondItem="rJV-YA-m5R" secondAttribute="height" multiplier="320:293" id="mG6-j9-E3g"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -379,7 +380,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Results 2" translatesAutoresizingMaskIntoConstraints="NO" id="AJK-Hg-N0h">
-                                <rect key="frame" x="-3" y="-49" width="327" height="553"/>
+                                <rect key="frame" x="0.0" y="-50" width="320" height="554"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="nYb-n4-ECg" userLabel="Super Stack View">
                                 <rect key="frame" x="31" y="127" width="258" height="140"/>
@@ -441,11 +442,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="nYb-n4-ECg" firstAttribute="top" secondItem="ouH-7Q-mhH" secondAttribute="bottom" constant="127" id="7S7-8F-tfp"/>
-                            <constraint firstItem="AJK-Hg-N0h" firstAttribute="centerX" secondItem="nYb-n4-ECg" secondAttribute="centerX" id="ECL-kG-Zyt"/>
-                            <constraint firstItem="AJK-Hg-N0h" firstAttribute="bottom" secondItem="RAx-VN-dis" secondAttribute="top" id="czK-hA-esy"/>
-                            <constraint firstItem="AJK-Hg-N0h" firstAttribute="leading" secondItem="ZAb-iD-oyj" secondAttribute="leadingMargin" constant="-19" id="iBz-kU-46s"/>
+                            <constraint firstItem="RAx-VN-dis" firstAttribute="top" secondItem="AJK-Hg-N0h" secondAttribute="bottom" id="DDC-Oy-4TP"/>
+                            <constraint firstItem="AJK-Hg-N0h" firstAttribute="top" secondItem="ZAb-iD-oyj" secondAttribute="top" constant="-50" id="J4w-S8-0bR"/>
+                            <constraint firstAttribute="trailing" secondItem="AJK-Hg-N0h" secondAttribute="trailing" id="LdT-fl-DIk"/>
+                            <constraint firstItem="AJK-Hg-N0h" firstAttribute="leading" secondItem="ZAb-iD-oyj" secondAttribute="leading" id="eWb-SZ-XJF"/>
                             <constraint firstItem="nYb-n4-ECg" firstAttribute="centerX" secondItem="ZAb-iD-oyj" secondAttribute="centerX" id="jt6-vc-wdt"/>
-                            <constraint firstItem="AJK-Hg-N0h" firstAttribute="top" secondItem="ZAb-iD-oyj" secondAttribute="topMargin" constant="-49" id="mkJ-Av-yhy"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Results" id="ijI-Lt-ULG"/>
