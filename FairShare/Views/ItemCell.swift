@@ -39,6 +39,14 @@ class ItemCell: UITableViewCell {
         
     }
     
+    override func prepareForReuse() {
+        
+        itemPriceTextField.text = nil
+        super.prepareForReuse()
+
+        
+    }
+    
     @IBAction func itemCheckButtonTapped(_ sender: UIButton) {
         
         isChecked = !isChecked

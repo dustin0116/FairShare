@@ -34,7 +34,7 @@ class HomeViewController: UIViewController {
     
     var textFields = [UITextField]()
     
-    var itemPrices = [String]()
+//    var itemPrices = [String]()
     
     var checkButtons = [Bool]()
     
@@ -170,7 +170,7 @@ class HomeViewController: UIViewController {
             
             items.append(Item(itemNumber: itemNumber, isChecked: false, itemPrice: price))
             
-            itemPrices.append("")
+//            itemPrices.append("")
 
             checkButtons.append(false)
             
@@ -222,7 +222,7 @@ class HomeViewController: UIViewController {
         
         items.append(Item(itemNumber: itemNumber, isChecked: false, itemPrice: price))
         
-        itemPrices.append("")
+//        itemPrices.append("")
         
         checkButtons.append(false)
         
@@ -254,7 +254,7 @@ class HomeViewController: UIViewController {
             
             self.items.removeAll()
             
-            self.itemPrices.removeAll()
+//            self.itemPrices.removeAll()
             
             self.checkButtons.removeAll()
             
@@ -320,7 +320,7 @@ class HomeViewController: UIViewController {
             
         }
         
-        for i in 0..<itemPrices.count {
+        for i in 0..<items.count {
         
             if items[i].itemPrice >= 0 {
                 
@@ -446,17 +446,18 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemTableViewCell", for: indexPath) as! ItemCell
         let row = indexPath.row
         let item = items[row]
-        
+        cell.item = item
         cell.row = row
         cell.delegate = self
         cell.itemPriceTextField.delegate = self
         cell.itemTitleTextLabel.text = item.itemLabel
         cell.itemNumberLabel.text = String(indexPath.row + 1)
-        cell.itemPriceTextField.text = String(format: "%.02f", item.itemPrice)
-        cell.item = item
+        if item.itemPrice != 0.0 {
+            cell.itemPriceTextField.text = String(format: "%.02f", item.itemPrice)
+        }
         cell.isChecked = item.isChecked
         
-        textFields.append(cell.itemPriceTextField)
+        textFields.append(cell.self.itemPriceTextField)
         
         if item.isChecked == true {
             
@@ -478,7 +479,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         if editingStyle == .delete {
             
             items.remove(at: indexPath.row)
-            itemPrices.remove(at: indexPath.row)
+//            itemPrices.remove(at: indexPath.row)
             checkButtons.remove(at: indexPath.row)
             
             itemNumber = 0
@@ -509,7 +510,7 @@ extension HomeViewController: ItemCheckList {
     
     func addPriceToArray(row: Int, text: String) {
         
-        itemPrices[row] = text
+//        itemPrices[row] = text
         
     }
 }
@@ -517,6 +518,7 @@ extension HomeViewController: ItemCheckList {
 extension HomeViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        
         let contentView = textField.superview!
         if let cell = contentView.superview as? UITableViewCell {
             let indexPath = tableView.indexPath(for: cell)
@@ -529,8 +531,10 @@ extension HomeViewController: UITextFieldDelegate {
                     if let textFieldText = textField.text {
                         if let price = Double(textFieldText) {
                             itemAtThisCell.itemPrice = price
+                            textField.text = String(format: "%.02f", itemAtThisCell.itemPrice)
                         }
                     }
+                    
                     
                 } else {
                     
@@ -544,16 +548,6 @@ extension HomeViewController: UITextFieldDelegate {
             }
         }
         
-        if taxAmountTextField.text == "" {
-            
-            taxAmountTextField.text = "0.00"
-        }
-        
-        if textField.text == "" {
-            
-            textField.text = "0.00"
-            
-        }
     }
     
 }

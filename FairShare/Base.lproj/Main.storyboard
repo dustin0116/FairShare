@@ -24,10 +24,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x0A-Di-JNB">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="203"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="190"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="x0A-Di-JNB" secondAttribute="height" multiplier="16:11" constant="24.727272727272691" id="TCJ-az-Svr"/>
+                                    <constraint firstAttribute="width" secondItem="x0A-Di-JNB" secondAttribute="height" multiplier="16:11" constant="43.636363636363626" id="TCJ-az-Svr"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="190" id="aL6-DT-xW7"/>
                                 </constraints>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -57,7 +57,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="0.00" borderStyle="roundedRect" placeholder="0.00" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A8P-h5-FMq">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.00" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A8P-h5-FMq">
                                                     <rect key="frame" x="247" y="14.5" width="65" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="65" id="j2g-gs-qCc"/>
@@ -114,7 +114,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJV-YA-m5R" userLabel="Whole Half Bottom View">
-                                <rect key="frame" x="0.0" y="211" width="320" height="293"/>
+                                <rect key="frame" x="0.0" y="198" width="320" height="306"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bg7-jM-M1J" userLabel="Super Stack View">
                                         <rect key="frame" x="23" y="0.0" width="274" height="260"/>
@@ -270,10 +270,10 @@
                                 <color key="tintColor" red="0.42608222365379333" green="0.66284388303756714" blue="0.84318649768829346" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="bg7-jM-M1J" firstAttribute="top" secondItem="rJV-YA-m5R" secondAttribute="top" id="A5N-sZ-74p"/>
-                                    <constraint firstAttribute="bottomMargin" relation="lessThanOrEqual" secondItem="bg7-jM-M1J" secondAttribute="bottom" constant="25" id="Iuc-au-NPN"/>
+                                    <constraint firstAttribute="bottomMargin" relation="lessThanOrEqual" secondItem="bg7-jM-M1J" secondAttribute="bottom" constant="38" id="Iuc-au-NPN"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="bg7-jM-M1J" secondAttribute="trailing" constant="15" id="bCx-ez-vc3"/>
                                     <constraint firstItem="bg7-jM-M1J" firstAttribute="leading" secondItem="rJV-YA-m5R" secondAttribute="leadingMargin" constant="15" id="eX2-ed-2zW"/>
-                                    <constraint firstAttribute="width" secondItem="rJV-YA-m5R" secondAttribute="height" multiplier="320:293" id="mG6-j9-E3g"/>
+                                    <constraint firstAttribute="width" secondItem="rJV-YA-m5R" secondAttribute="height" multiplier="320:293" constant="-14.197952218430032" id="mG6-j9-E3g"/>
                                 </constraints>
                             </view>
                         </subviews>
