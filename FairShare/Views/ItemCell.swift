@@ -41,9 +41,8 @@ class ItemCell: UITableViewCell {
     
     override func prepareForReuse() {
         
-        itemPriceTextField.text = nil
         super.prepareForReuse()
-
+        self.itemPriceTextField.text = nil
         
     }
     

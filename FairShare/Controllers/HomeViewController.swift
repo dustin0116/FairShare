@@ -28,11 +28,11 @@ class HomeViewController: UIViewController {
 //MARK: - Variables
     var globlalKeyboardSize: CGRect! = CGRect.zero
     
-    var activeField: UITextField?
+//    var activeField: UITextField?
     
     var items = [Item]()
     
-    var textFields = [UITextField]()
+//    var textFields = [UITextField]()
     
 //    var itemPrices = [String]()
     
@@ -204,9 +204,10 @@ class HomeViewController: UIViewController {
         
         taxAmountTextField.resignFirstResponder()
         
-        if taxInputTypeSelector.selectedSegmentIndex == 0 {
+        if taxInputTypeSelector.selectedSegmentIndex == 0 || taxInputTypeSelector.selectedSegmentIndex == 1 {
             taxAmountTextField.text = "0.00"
         }
+        
     }
     
     @IBAction func taxInputTypeSelectorTapped(_ sender: UISegmentedControl) {
@@ -310,6 +311,9 @@ class HomeViewController: UIViewController {
         
         let tipPercent = Double(tipSlider.value) / 100
         
+        let roundedTipPercent = String(format: "%.2f", tipPercent)
+
+        
         var taxAmount = 0.0
         
         switch taxInputTypeSelector.selectedSegmentIndex {
@@ -326,17 +330,16 @@ class HomeViewController: UIViewController {
                 
                 let priceAmount = items[i].itemPrice
                 
-                print("Price: \(priceAmount)")
                 
+                allItemsPriceAmount += priceAmount
                 
-                let roundedForAllItemsPriceAmount = (100 * priceAmount) / 100
+                print("Tip %: \(tipPercent)")
                 
-                
-                allItemsPriceAmount += roundedForAllItemsPriceAmount
-                
-                allItemsWithTipPercentAmount = allItemsPriceAmount * tipPercent
+                allItemsWithTipPercentAmount = allItemsPriceAmount * Double(roundedTipPercent)!
                 
                 allItemsPlusTaxAmount = allItemsWithTipPercentAmount + taxAmount + allItemsPriceAmount
+                
+                print("Tax: \(taxAmount)")
                 
                 allItemsSplittedEqually = allItemsPlusTaxAmount / Double(numberOfPeopleLabel.text!)!
                 
@@ -347,13 +350,9 @@ class HomeViewController: UIViewController {
                     
                     }
                 
-                let roundedPriceAmount = (100 * priceAmount) / 100
                 
-                print("Rounded Price: \(roundedPriceAmount)")
+                totalCheckedAmount += priceAmount
                 
-                totalCheckedAmount += roundedPriceAmount
-                
-                print("Total: \(totalCheckedAmount)")
                 
             } else {
                 
@@ -368,7 +367,7 @@ class HomeViewController: UIViewController {
             }
         }
         
-        totalWithTipPercentCheckedAmount = totalCheckedAmount * tipPercent
+        totalWithTipPercentCheckedAmount = totalCheckedAmount * Double(roundedTipPercent)!
         
         print("Total with Tip: \(totalWithTipPercentCheckedAmount)")
         
@@ -452,12 +451,12 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         cell.itemPriceTextField.delegate = self
         cell.itemTitleTextLabel.text = item.itemLabel
         cell.itemNumberLabel.text = String(indexPath.row + 1)
+        cell.itemPriceTextField.text = nil
+        
         if item.itemPrice != 0.0 {
             cell.itemPriceTextField.text = String(format: "%.02f", item.itemPrice)
         }
         cell.isChecked = item.isChecked
-        
-        textFields.append(cell.self.itemPriceTextField)
         
         if item.isChecked == true {
             
@@ -546,6 +545,12 @@ extension HomeViewController: UITextFieldDelegate {
                 print("not located in a cell")
                 
             }
+        }
+        
+        if taxAmountTextField.text == "" {
+            
+            taxAmountTextField.text = "0.00"
+            
         }
         
     }
