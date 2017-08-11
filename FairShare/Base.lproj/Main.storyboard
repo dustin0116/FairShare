@@ -23,7 +23,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x0A-Di-JNB" userLabel="Items Table View">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x0A-Di-JNB">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="190"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -57,10 +57,10 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.00" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="A8P-h5-FMq">
-                                                    <rect key="frame" x="224" y="15" width="88" height="30"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.00" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A8P-h5-FMq">
+                                                    <rect key="frame" x="247" y="14.5" width="65" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="88" id="j2g-gs-qCc"/>
+                                                        <constraint firstAttribute="width" constant="65" id="j2g-gs-qCc"/>
                                                     </constraints>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
@@ -69,17 +69,17 @@
                                                         <action selector="itemPriceTextFieldEndEdit:" destination="l09-Jb-UQZ" eventType="editingDidEnd" id="rXY-xF-j0l"/>
                                                     </connections>
                                                 </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2O-RM-Lxi">
+                                                    <rect key="frame" x="228" y="19.5" width="11" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jh-r7-Y5N">
                                                     <rect key="frame" x="91" y="19.5" width="35" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="35" id="N2e-A2-9vN"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2O-RM-Lxi">
-                                                    <rect key="frame" x="205" y="20" width="11" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -90,12 +90,12 @@
                                                 <constraint firstItem="CSc-t5-njf" firstAttribute="top" secondItem="w9R-sC-LPZ" secondAttribute="top" id="5at-Zp-Iq9"/>
                                                 <constraint firstItem="6ZZ-VA-OFV" firstAttribute="centerY" secondItem="w9R-sC-LPZ" secondAttribute="centerY" id="6Fe-f5-XKN"/>
                                                 <constraint firstItem="A8P-h5-FMq" firstAttribute="trailing" secondItem="w9R-sC-LPZ" secondAttribute="trailingMargin" id="KSa-o9-S6g"/>
-                                                <constraint firstItem="r2O-RM-Lxi" firstAttribute="centerY" secondItem="w9R-sC-LPZ" secondAttribute="centerY" constant="0.75" id="Oep-JF-RTr"/>
+                                                <constraint firstItem="r2O-RM-Lxi" firstAttribute="centerY" secondItem="w9R-sC-LPZ" secondAttribute="centerY" id="Oep-JF-RTr"/>
                                                 <constraint firstItem="0jh-r7-Y5N" firstAttribute="leading" secondItem="6ZZ-VA-OFV" secondAttribute="trailing" constant="8" id="X3O-Jh-Qt8"/>
                                                 <constraint firstItem="0jh-r7-Y5N" firstAttribute="centerY" secondItem="w9R-sC-LPZ" secondAttribute="centerY" id="YNX-6u-ZLd"/>
-                                                <constraint firstItem="A8P-h5-FMq" firstAttribute="centerY" secondItem="r2O-RM-Lxi" secondAttribute="centerY" constant="-0.5" id="aji-xq-cYV"/>
+                                                <constraint firstItem="A8P-h5-FMq" firstAttribute="centerY" secondItem="r2O-RM-Lxi" secondAttribute="centerY" id="aji-xq-cYV"/>
                                                 <constraint firstItem="CSc-t5-njf" firstAttribute="leading" secondItem="w9R-sC-LPZ" secondAttribute="leading" id="dmG-LB-kaa"/>
-                                                <constraint firstItem="A8P-h5-FMq" firstAttribute="leading" secondItem="r2O-RM-Lxi" secondAttribute="trailing" constant="8" id="o7a-4c-bbA"/>
+                                                <constraint firstItem="A8P-h5-FMq" firstAttribute="leading" secondItem="r2O-RM-Lxi" secondAttribute="trailing" constant="8" symbolic="YES" id="o7a-4c-bbA"/>
                                                 <constraint firstItem="6ZZ-VA-OFV" firstAttribute="leading" secondItem="CSc-t5-njf" secondAttribute="trailing" id="qwX-4x-FrG"/>
                                             </constraints>
                                         </tableViewCellContentView>
