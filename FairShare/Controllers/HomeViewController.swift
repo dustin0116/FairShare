@@ -452,7 +452,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         cell.itemTitleTextLabel.text = item.itemLabel
         cell.itemNumberLabel.text = String(indexPath.row + 1)
         cell.itemPriceTextField.text = nil
-        
         if item.itemPrice != 0.0 {
             cell.itemPriceTextField.text = String(format: "%.02f", item.itemPrice)
         }
