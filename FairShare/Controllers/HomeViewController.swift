@@ -106,7 +106,7 @@ class HomeViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        taxAmountTextField.resignFirstResponder()
+        self.view.endEditing(true)
         
     }
 
@@ -551,6 +551,9 @@ extension HomeViewController: UITextFieldDelegate {
             
             taxAmountTextField.text = "0.00"
             
+        } else {
+            
+            taxAmountTextField.text = String(format: "%.02f", Double(taxAmountTextField.text!)!)
         }
         
     }
