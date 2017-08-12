@@ -28,10 +28,10 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="93o-I0-giX" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="C78-IE-0A1"/>
-                            <constraint firstItem="93o-I0-giX" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="QiK-pt-Jnb"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="93o-I0-giX" secondAttribute="bottom" id="Vux-ri-SgU"/>
-                            <constraint firstAttribute="trailing" secondItem="93o-I0-giX" secondAttribute="trailing" id="vm1-WL-OrO"/>
+                            <constraint firstItem="93o-I0-giX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Ze5-6b-2t3" secondAttribute="top" id="C78-IE-0A1"/>
+                            <constraint firstItem="93o-I0-giX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="QiK-pt-Jnb"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" relation="greaterThanOrEqual" secondItem="93o-I0-giX" secondAttribute="bottom" id="Vux-ri-SgU"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="93o-I0-giX" secondAttribute="trailing" id="vm1-WL-OrO"/>
                         </constraints>
                     </view>
                 </viewController>

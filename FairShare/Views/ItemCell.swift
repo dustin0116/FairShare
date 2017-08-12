@@ -12,8 +12,6 @@ import UIKit
 protocol ItemCheckList: class {
     
     func getInfo(row: Int, cell: ItemCell)
-    func addPriceToArray(row: Int, text: String)
-    
     
 }
 
@@ -59,12 +57,6 @@ class ItemCell: UITableViewCell {
             sender.setImage(#imageLiteral(resourceName: "Reveal"), for: .normal)
             item?.isChecked = false
         }
-    }
-    
-    @IBAction func itemPriceTextFieldEndEdit(_ sender: UITextField) {
-        
-        delegate?.addPriceToArray(row: row, text: itemPriceTextField.text!)
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

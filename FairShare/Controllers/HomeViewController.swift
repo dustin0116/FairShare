@@ -2,7 +2,6 @@
 //  HomeViewController.swift
 //  FairShare
 //
-
 //  Created by Dustin Hsiang on 7/10/17.
 //  Copyright © 2017 Dustin Hsiang. All rights reserved.
 //
@@ -11,8 +10,8 @@ import Crashlytics
 import Fabric
 
 class HomeViewController: UIViewController {
-
-//MARK: - IBOutlet Variables
+    
+    //MARK: - IBOutlet Variables
     @IBOutlet weak var tipSlider: UISlider!
     @IBOutlet weak var tipPercentLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -25,16 +24,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var taxInputTypeSelector: UISegmentedControl!
     @IBOutlet weak var wholeBottomHalfView: UIView!
     
-//MARK: - Variables
-    var globlalKeyboardSize: CGRect! = CGRect.zero
-    
-//    var activeField: UITextField?
+    //MARK: - Variables
     
     var items = [Item]()
-    
-//    var textFields = [UITextField]()
-    
-//    var itemPrices = [String]()
     
     var checkButtons = [Bool]()
     
@@ -57,9 +49,9 @@ class HomeViewController: UIViewController {
     var allItemsPlusTaxAmount: Double = 0.0
     
     var allItemsSplittedEqually: Double = 0.0
-
-
-//MARK: - Functions
+    
+    
+    //MARK: - Functions
     
     override func viewDidLoad() {
         
@@ -109,22 +101,22 @@ class HomeViewController: UIViewController {
         self.view.endEditing(true)
         
     }
-
+    
     func keyboardWillShow(notification : NSNotification) {
         
         if taxAmountTextField.isFirstResponder {
-        
-        let keyboardInfo : NSDictionary = notification.userInfo! as NSDictionary
-        
-        let kbSize : CGSize = ((keyboardInfo.object(forKey: UIKeyboardFrameEndUserInfoKey)) as! CGRect).size
-        
-        
-        let durationValue : NSNumber = keyboardInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber
-        let animationDuration : TimeInterval = durationValue.doubleValue
-        
-        let rawAnimationCurveValue = (keyboardInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).uintValue
-        _ = UIViewAnimationCurve(rawValue: Int(rawAnimationCurveValue))
-        
+            
+            let keyboardInfo : NSDictionary = notification.userInfo! as NSDictionary
+            
+            let kbSize : CGSize = ((keyboardInfo.object(forKey: UIKeyboardFrameEndUserInfoKey)) as! CGRect).size
+            
+            
+            let durationValue : NSNumber = keyboardInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber
+            let animationDuration : TimeInterval = durationValue.doubleValue
+            
+            let rawAnimationCurveValue = (keyboardInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).uintValue
+            _ = UIViewAnimationCurve(rawValue: Int(rawAnimationCurveValue))
+            
             let options = UIViewAnimationOptions(rawValue: UInt((keyboardInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
             let newY = self.wholeBottomHalfView.frame.origin.y - kbSize.height
             
@@ -170,8 +162,6 @@ class HomeViewController: UIViewController {
             
             items.append(Item(itemNumber: itemNumber, isChecked: false, itemPrice: price))
             
-//            itemPrices.append("")
-
             checkButtons.append(false)
             
             print("Items: \(items.count)")
@@ -202,30 +192,11 @@ class HomeViewController: UIViewController {
     }
     
     
-    @IBAction func taxInputTypeSelectorValueChanged(_ sender: UISegmentedControl) {
-        
-        taxAmountTextField.resignFirstResponder()
-        
-        if taxInputTypeSelector.selectedSegmentIndex == 0 || taxInputTypeSelector.selectedSegmentIndex == 1 {
-            taxAmountTextField.text = "0.00"
-        }
-        
-    }
-    
-    @IBAction func taxInputTypeSelectorTapped(_ sender: UISegmentedControl) {
-        
-        taxAmountTextField.resignFirstResponder()
-    }
-    
-    
-    
     //MARK: - Buttons
     
     @IBAction func addItemButtonTapped(_ sender: UIBarButtonItem) {
         
         items.append(Item(itemNumber: itemNumber, isChecked: false, itemPrice: price))
-        
-//        itemPrices.append("")
         
         checkButtons.append(false)
         
@@ -244,7 +215,7 @@ class HomeViewController: UIViewController {
         tableView.scrollToRow(at: lastRowIndexPath, at: .none, animated: true)
         
         Answers.logCustomEvent(withName: "User adds item", customAttributes: nil)
-
+        
     }
     
     @IBAction func removeAllButtonTapped(_ sender: UIButton) {
@@ -257,7 +228,7 @@ class HomeViewController: UIViewController {
             
             self.items.removeAll()
             
-//            self.itemPrices.removeAll()
+            //            self.itemPrices.removeAll()
             
             self.checkButtons.removeAll()
             
@@ -273,7 +244,7 @@ class HomeViewController: UIViewController {
             print("Items: \(self.items.count)")
             
             Answers.logCustomEvent(withName: "User Removes All Items", customAttributes: nil)
-
+            
             
             
         })
@@ -288,13 +259,13 @@ class HomeViewController: UIViewController {
         
         present(aC, animated: true, completion: nil)
         
-
+        
     }
     
     @IBAction func calculateButtonTapped(_ sender: UIButton) {
         
         totalWithTipPercentCheckedAmount = 0.0
-
+        
         taxPlusTotalCheckedAmount = 0.0
         
         splittedTaxPlusTotalCheckedAmount = 0.0
@@ -311,25 +282,40 @@ class HomeViewController: UIViewController {
         
         taxAmountTextField.resignFirstResponder()
         
-        let tipPercent = Int(tipSlider.value) / 100
+        let tipPercent = Double(Int(tipSlider.value)) / 100
         
         let roundedTipPercent = String(format: "%.2f", tipPercent)
         
         print("Tip Percent: \(roundedTipPercent)")
-
         
         var taxAmount = 0.0
         
         switch taxInputTypeSelector.selectedSegmentIndex {
             
-        case 0: taxAmount = Double(taxAmountTextField.text!)!
-        case 1: taxAmount = Double(taxAmountTextField.text!)! / 100
+        case 0: if taxAmountTextField.text != "" {
+            
+            taxAmount = Double(taxAmountTextField.text!)!
+
+        } else {
+            
+            taxAmount = 0.0
+            
+            }
+            
+        case 1: if taxAmountTextField.text != "" {
+            
+            taxAmount = Double(taxAmountTextField.text!)! / 100
+            
+        } else {
+            taxAmount = 0.0
+            }
+            
         default: break
             
         }
         
         for i in 0..<items.count {
-        
+            
             if items[i].itemPrice >= 0 {
                 
                 let priceAmount = items[i].itemPrice
@@ -352,22 +338,20 @@ class HomeViewController: UIViewController {
                     
                     continue
                     
-                    }
-                
+                }
                 
                 totalCheckedAmount += priceAmount
-                
                 
             } else {
                 
                 let aC = UIAlertController(title: "Error", message: "Invalid text for item price.", preferredStyle: .alert)
                 let okButton = UIAlertAction(title: "OK", style: .default, handler: nil)
                 okButton.setValue(UIColor(red:0.43, green:0.66, blue:0.84, alpha:1.0), forKey: "titleTextColor")
-
+                
                 aC.addAction(okButton)
                 present(aC, animated: true, completion: nil)
                 break
-            
+                
             }
         }
         
@@ -384,16 +368,16 @@ class HomeViewController: UIViewController {
         print("TotalPlusSplittedTax: \(splittedTaxPlusTotalCheckedAmount)")
         
         
-        if items.count == 0 {
+        if items.count == 0  {
             
             let aC = UIAlertController(title: "No Items", message: "Please add items.", preferredStyle: .alert)
             let oKButton = UIAlertAction(title: "OK", style: .default, handler: nil)
             oKButton.setValue(UIColor(red:0.43, green:0.66, blue:0.84, alpha:1.0), forKey: "titleTextColor")
-
+            
             aC.addAction(oKButton)
             present(aC, animated: true, completion: nil)
             
-        } else if taxAmountTextField.text == "0.00" && splittedTaxPlusTotalCheckedAmount == 0 && allItemsPriceAmount == 0 {
+        } else if splittedTaxPlusTotalCheckedAmount == 0 && allItemsPriceAmount == 0 {
             
             let aC = UIAlertController(title: "No Values", message: "Please input prices.", preferredStyle: .alert)
             let oKButton = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -404,7 +388,7 @@ class HomeViewController: UIViewController {
         }
         
         Answers.logCustomEvent(withName: "User Calculates", customAttributes: nil)
-
+        
         
     }
     
@@ -421,7 +405,7 @@ class HomeViewController: UIViewController {
         
         if segue.identifier == "about" {
             
-          _ = segue.destination as! AboutViewController
+            _ = segue.destination as! AboutViewController
         }
     }
     
@@ -481,7 +465,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         if editingStyle == .delete {
             
             items.remove(at: indexPath.row)
-//            itemPrices.remove(at: indexPath.row)
             checkButtons.remove(at: indexPath.row)
             
             itemNumber = 0
@@ -506,15 +489,10 @@ extension HomeViewController: ItemCheckList {
     func getInfo(row: Int, cell: ItemCell) {
         
         let itemAtThisCell = Item(itemNumber: itemNumber, isChecked: cell.isChecked, itemPrice: price)
-                
+        
         checkButtons[row] = itemAtThisCell.isChecked
     }
     
-    func addPriceToArray(row: Int, text: String) {
-        
-//        itemPrices[row] = text
-        
-    }
 }
 
 extension HomeViewController: UITextFieldDelegate {
@@ -550,13 +528,10 @@ extension HomeViewController: UITextFieldDelegate {
             }
         }
         
-        if taxAmountTextField.text == "" {
-            
-            taxAmountTextField.text = "0.00"
-            
-        } else {
+        if taxAmountTextField.text != "" {
             
             taxAmountTextField.text = String(format: "%.02f", Double(taxAmountTextField.text!)!)
+            
         }
         
     }
@@ -564,31 +539,31 @@ extension HomeViewController: UITextFieldDelegate {
 }
 
 extension UITextField {
-
+    
     open override func awakeFromNib() {
-
+        
         super.awakeFromNib()
         self.addHideinputAccessoryView()
-
+        
     }
-
+    
     func addHideinputAccessoryView() {
-
+        
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
         toolbar.barStyle = UIBarStyle.default
         toolbar.sizeToFit()
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done,
-
+                                         
                                          target: self, action: #selector(self.resignFirstResponder))
         
         doneButton.tintColor = UIColor(red:0.43, green:0.66, blue:0.84, alpha:1.0)
-
+        
         toolbar.setItems([doneButton], animated: true)
-
+        
         toolbar.isUserInteractionEnabled = true
-
+        
         self.inputAccessoryView = toolbar
-
-    }
+        
+}
 
 }
