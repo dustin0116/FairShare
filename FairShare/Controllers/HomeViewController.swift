@@ -191,6 +191,8 @@ class HomeViewController: UIViewController {
         
         tipPercentLabel.text = "Tip \(currentPercent)%:"
         
+        print("Tip Amount: \(currentPercent)%")
+        
     }
     
     @IBAction func tipSliderDrag(_ sender: Any) {
@@ -309,9 +311,11 @@ class HomeViewController: UIViewController {
         
         taxAmountTextField.resignFirstResponder()
         
-        let tipPercent = Double(tipSlider.value) / 100
+        let tipPercent = Int(tipSlider.value) / 100
         
         let roundedTipPercent = String(format: "%.2f", tipPercent)
+        
+        print("Tip Percent: \(roundedTipPercent)")
 
         
         var taxAmount = 0.0
@@ -452,7 +456,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         cell.itemTitleTextLabel.text = item.itemLabel
         cell.itemNumberLabel.text = String(indexPath.row + 1)
         cell.itemPriceTextField.text = nil
-        
         if item.itemPrice != 0.0 {
             cell.itemPriceTextField.text = String(format: "%.02f", item.itemPrice)
         }
