@@ -28,8 +28,6 @@ class CalculationResultsViewController: UIViewController {
         super.viewDidLoad()
         totalAmountTextField.text = String(format: "%.2f", calculatedAmount)
         amountPerPersonTextField.text = String(format: "%.2f", amountPerPerson)
-        totalSplittedEquallyTextField.text = String(format: "%.2f", calculatedAmountSplitted)
-
         // Do any additional setup after loading the view.
     }
 

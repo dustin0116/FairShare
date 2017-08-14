@@ -331,9 +331,6 @@ class HomeViewController: UIViewController {
                 
                 print("Tax: \(taxAmount)")
                 
-                allItemsSplittedEqually = allItemsPlusTaxAmount / Double(numberOfPeopleLabel.text!)!
-                
-                
                 if priceAmount == 0.0 || checkButtons[i] == false {
                     
                     continue
@@ -399,7 +396,6 @@ class HomeViewController: UIViewController {
             let calculationResultsViewController = segue.destination as! CalculationResultsViewController
             calculationResultsViewController.calculatedAmount = allItemsPlusTaxAmount
             calculationResultsViewController.amountPerPerson = splittedTaxPlusTotalCheckedAmount
-            calculationResultsViewController.calculatedAmountSplitted = allItemsSplittedEqually
             
         }
         
