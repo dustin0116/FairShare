@@ -50,7 +50,6 @@ class HomeViewController: UIViewController {
     
     var allItemsSplittedEqually: Double = 0.0
     
-    
     //MARK: - Functions
     
     override func viewDidLoad() {
@@ -90,68 +89,35 @@ class HomeViewController: UIViewController {
         
     }
     
-    func doneButtonAction() {
+    @objc func doneButtonAction() {
         
         self.taxAmountTextField.resignFirstResponder()
         
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
+
         self.view.endEditing(true)
-        
+
     }
     
-    func keyboardWillShow(notification : NSNotification) {
+    @objc func keyboardWillShow(notification : NSNotification) {
         
-        if taxAmountTextField.isFirstResponder {
+        if taxAmountTextField.isEditing {
+            let info:NSDictionary = notification.userInfo! as NSDictionary
+            let keyboardSize = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
             
-            let keyboardInfo : NSDictionary = notification.userInfo! as NSDictionary
-            
-            let kbSize : CGSize = ((keyboardInfo.object(forKey: UIKeyboardFrameEndUserInfoKey)) as! CGRect).size
-            
-            
-            let durationValue : NSNumber = keyboardInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber
-            let animationDuration : TimeInterval = durationValue.doubleValue
-            
-            let rawAnimationCurveValue = (keyboardInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).uintValue
-            _ = UIViewAnimationCurve(rawValue: Int(rawAnimationCurveValue))
-            
-            let options = UIViewAnimationOptions(rawValue: UInt((keyboardInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
-            let newY = self.wholeBottomHalfView.frame.origin.y - kbSize.height
-            
-            UIView.animate(withDuration: animationDuration, delay: 0, options:options , animations: { () -> Void in
-                
-                self.wholeBottomHalfView.frame = CGRect(x: self.wholeBottomHalfView.frame.origin.x, y: newY, width: self.wholeBottomHalfView.frame.size.width, height: self.wholeBottomHalfView.frame.size.height)
-                
-            }, completion: nil)
+            self.view.frame.origin.y = self.view.frame.origin.y - keyboardSize.height
         }
     }
     
-    func keyboardWillHide(notification : NSNotification) {
+    @objc func keyboardWillHide(notification : NSNotification) {
         
         if taxAmountTextField.resignFirstResponder() {
-            
-            let keyboardInfo : NSDictionary = notification.userInfo! as NSDictionary
-            
-            let kbSize : CGSize = ((keyboardInfo.object(forKey: UIKeyboardFrameEndUserInfoKey)) as! CGRect).size
-            
-            
-            let durationValue : NSNumber = keyboardInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber
-            let animationDuration : TimeInterval = durationValue.doubleValue
-            
-            let rawAnimationCurveValue = (keyboardInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).uintValue
-            _ = UIViewAnimationCurve(rawValue: Int(rawAnimationCurveValue))
-            
-            let options = UIViewAnimationOptions(rawValue: UInt((keyboardInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
-            
-            UIView.animate(withDuration: animationDuration, delay: 0, options:options , animations: { () -> Void in
-                
-                self.wholeBottomHalfView.frame = CGRect(x: self.wholeBottomHalfView.frame.origin.x, y: self.wholeBottomHalfView.frame.origin.y + kbSize.height, width: self.wholeBottomHalfView.frame.size.width, height: self.wholeBottomHalfView.frame.size.height)
-                
-            }, completion: nil)
-            
-        }
+            let info:NSDictionary = notification.userInfo! as NSDictionary
+            let keyboardSize = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+                self.view.frame.origin.y = self.view.frame.origin.y + keyboardSize.height
+            }
     }
     
     func initializeItems() {
@@ -170,13 +136,13 @@ class HomeViewController: UIViewController {
     
     
     @IBAction func numberOfPeopleStepperAction(_ sender: UIStepper) {
-        
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
         numberOfPeopleLabel.text = String(Int(sender.value))
         
     }
     
     @IBAction func tipPercentValueChanged(_ sender: UISlider) {
-        
         let currentPercent = String(Int(tipSlider.value))
         
         tipPercentLabel.text = "Tip \(currentPercent)%:"
@@ -186,7 +152,6 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func tipSliderDrag(_ sender: Any) {
-        
         tipSlider.isContinuous = true
         
     }
@@ -219,46 +184,48 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func removeAllButtonTapped(_ sender: UIButton) {
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
         
         self.view.endEditing(true)
-        
-        let aC = UIAlertController(title: "Remove All Items", message: "Are you sure you want to remove all items?", preferredStyle: .alert)
-        
-        let yesButton = UIAlertAction(title: "Yes", style: .default, handler: {(action: UIAlertAction!) in
+        if items.isEmpty {
+            let aC = UIAlertController(title: "Empty", message: "There are no items to be removed.", preferredStyle: .alert)
+            let okButton = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            okButton.setValue(UIColor(red:0.43, green:0.66, blue:0.84, alpha:1.0), forKey: "titleTextColor")
+            aC.addAction(okButton)
+            present(aC, animated: true, completion: nil)
+        }
+        else {
+            let aC = UIAlertController(title: "Remove All Items", message: "Are you sure you want to remove all items?", preferredStyle: .alert)
             
-            self.items.removeAll()
+            let yesButton = UIAlertAction(title: "Yes", style: .default, handler: {(action: UIAlertAction!) in
+                
+                self.items.removeAll()
+                
+                self.checkButtons.removeAll()
+                
+                let range = NSMakeRange(0, self.tableView.numberOfSections)
+                let sections = NSIndexSet(indexesIn: range)
+                self.tableView.reloadSections(sections as IndexSet, with: .fade)
+                
+                self.tableView.rowHeight = 53
+                
+                print("Items: \(self.items.count)")
+                
+                Answers.logCustomEvent(withName: "User Removes All Items", customAttributes: nil)
+                
+            })
             
-            //            self.itemPrices.removeAll()
+            yesButton.setValue(UIColor(red:0.43, green:0.66, blue:0.84, alpha:1.0), forKey: "titleTextColor")
             
-            self.checkButtons.removeAll()
+            let noButton = UIAlertAction(title: "No", style: .cancel, handler: nil)
             
-            let range = NSMakeRange(0, self.tableView.numberOfSections)
-            let sections = NSIndexSet(indexesIn: range)
-            self.tableView.reloadSections(sections as IndexSet, with: .fade)
+            noButton.setValue(UIColor(red:0.43, green:0.66, blue:0.84, alpha:1.0), forKey: "titleTextColor")
+            aC.addAction(yesButton)
+            aC.addAction(noButton)
             
-            self.tableView.rowHeight = 53
-            
-            
-            
-            
-            print("Items: \(self.items.count)")
-            
-            Answers.logCustomEvent(withName: "User Removes All Items", customAttributes: nil)
-            
-            
-            
-        })
-        
-        yesButton.setValue(UIColor(red:0.43, green:0.66, blue:0.84, alpha:1.0), forKey: "titleTextColor")
-        
-        let noButton = UIAlertAction(title: "No", style: .cancel, handler: nil)
-        
-        noButton.setValue(UIColor(red:0.43, green:0.66, blue:0.84, alpha:1.0), forKey: "titleTextColor")
-        aC.addAction(yesButton)
-        aC.addAction(noButton)
-        
-        present(aC, animated: true, completion: nil)
-        
+            present(aC, animated: true, completion: nil)
+        }
         
     }
     
