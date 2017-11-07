@@ -10,9 +10,8 @@ import UIKit
 
 
 protocol ItemCheckList: class {
-    
+    // Protocols to gain access from HomeViewController.
     func getInfo(row: Int, cell: ItemCell)
-    
 }
 
 class ItemCell: UITableViewCell {
@@ -23,33 +22,24 @@ class ItemCell: UITableViewCell {
     @IBOutlet weak var itemNumberLabel: UILabel!
     
     var item : Item?
-    
     var isChecked = false
-    
     var row = 0
-    
     weak var delegate: ItemCheckList?
     
-    
     override func awakeFromNib() {
-        
         super.awakeFromNib()
-        
     }
     
     override func prepareForReuse() {
-        
+        // Reuses cells while setting text field as empty so that it won't reuse previous text field values.
         super.prepareForReuse()
         self.itemPriceTextField.text = nil
-        
     }
     
     @IBAction func itemCheckButtonTapped(_ sender: UIButton) {
-        
+        // Sets check button function.
         isChecked = !isChecked
-        
         delegate?.getInfo(row: row, cell: self)
-        
         if self.isChecked {
             sender.setImage(#imageLiteral(resourceName: "Select"), for: .normal)
             item?.isChecked = true
@@ -61,8 +51,6 @@ class ItemCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
-
 }

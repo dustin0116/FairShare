@@ -16,7 +16,6 @@ class Item {
     var itemPrice: Double = 0.0
     
     init(itemNumber: Int, isChecked: Bool, itemPrice: Double = 0.0) {
-        
         self.isChecked = isChecked
         self.itemNumber = itemNumber
         self.itemPrice = itemPrice
