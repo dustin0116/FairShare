@@ -245,7 +245,6 @@ class HomeViewController: UIViewController {
                     let aC = UIAlertController(title: "Error", message: "Invalid text for item price.", preferredStyle: .alert)
                     let okButton = UIAlertAction(title: "OK", style: .default, handler: nil)
                     okButton.setValue(UIColor(red:0.43, green:0.66, blue:0.84, alpha:1.0), forKey: "titleTextColor")
-                    
                     aC.addAction(okButton)
                     present(aC, animated: true, completion: nil)
                     break
