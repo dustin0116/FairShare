@@ -30,8 +30,8 @@ class HomeViewController: UIViewController {
     var itemNumber = 0
     var price = 0.0
     var totalCheckedAmount: Double = 0.0
-    var taxPlusTotalCheckedAmount: Double = 0.0
-    var totalWithTipPercentCheckedAmount: Double = 0.0
+    var tipPercentageAddedTotalAmount: Double = 0.0
+    var tipPercentageAmount: Double = 0.0
     var splittedTaxPlusTotalCheckedAmount: Double = 0.0
     var allItemsPriceAmount: Double = 0.0
     var allItemsWithTipPercentAmount: Double = 0.0
@@ -209,8 +209,8 @@ class HomeViewController: UIViewController {
     
     @IBAction func calculateButtonTapped(_ sender: UIButton) {
         // Calculates.
-        totalWithTipPercentCheckedAmount = 0.0
-        taxPlusTotalCheckedAmount = 0.0
+        tipPercentageAmount = 0.0
+        tipPercentageAddedTotalAmount = 0.0
         splittedTaxPlusTotalCheckedAmount = 0.0
         totalCheckedAmount = 0.0
         allItemsPlusTaxAmount = 0.0
@@ -234,8 +234,8 @@ class HomeViewController: UIViewController {
                     let priceAmount = items[i].itemPrice
                     // Calculation for all items regardless of being checked or not.
                     allItemsPriceAmount += priceAmount
-                    allItemsWithTipPercentAmount = allItemsPriceAmount * Double(roundedTipPercent)!
-                    allItemsPlusTaxAmount = allItemsWithTipPercentAmount + taxAmount + allItemsPriceAmount
+                    allItemsWithTipPercentAmount = (allItemsPriceAmount * Double(roundedTipPercent)!) + allItemsPriceAmount
+                    allItemsPlusTaxAmount = allItemsWithTipPercentAmount + taxAmount
                     if priceAmount == 0.0 || checkButtons[i] == false {
                         // Checks if item is checked and whether it has a price or not.
                         continue
@@ -252,10 +252,10 @@ class HomeViewController: UIViewController {
                 }
             }
             // Calculation for checked items.
-            totalWithTipPercentCheckedAmount = totalCheckedAmount * Double(roundedTipPercent)!
+            tipPercentageAmount = (allItemsPriceAmount * Double(roundedTipPercent)!) / Double(numberOfPeopleLabel.text!)!
             let splittedTaxAmount = taxAmount / Double(numberOfPeopleLabel.text!)!
-            taxPlusTotalCheckedAmount = totalWithTipPercentCheckedAmount + totalCheckedAmount
-            splittedTaxPlusTotalCheckedAmount = totalWithTipPercentCheckedAmount + splittedTaxAmount + totalCheckedAmount
+            tipPercentageAddedTotalAmount = tipPercentageAmount + totalCheckedAmount
+            splittedTaxPlusTotalCheckedAmount = tipPercentageAddedTotalAmount + splittedTaxAmount
         } else {
             taxAmount = 0.0
             }
@@ -265,9 +265,9 @@ class HomeViewController: UIViewController {
                 if items[i].itemPrice >= 0 {
                     let priceAmount = items[i].itemPrice
                     allItemsPriceAmount += priceAmount
-                    allItemsWithTipPercentAmount = allItemsPriceAmount * Double(roundedTipPercent)!
+                    allItemsWithTipPercentAmount = (allItemsPriceAmount * Double(roundedTipPercent)!) + allItemsPriceAmount
                     taxPercentage = taxAmount * allItemsPriceAmount
-                    allItemsPlusTaxAmount = allItemsWithTipPercentAmount + taxPercentage + allItemsPriceAmount
+                    allItemsPlusTaxAmount = allItemsWithTipPercentAmount + taxPercentage
                     if priceAmount == 0.0 || checkButtons[i] == false {
                         continue
                     }
@@ -281,10 +281,10 @@ class HomeViewController: UIViewController {
                     break
                 }
             }
-            totalWithTipPercentCheckedAmount = totalCheckedAmount * Double(roundedTipPercent)!
-            let splittedTaxAmount = taxAmount / Double(numberOfPeopleLabel.text!)!
-            taxPlusTotalCheckedAmount = totalWithTipPercentCheckedAmount + totalCheckedAmount
-            splittedTaxPlusTotalCheckedAmount = totalWithTipPercentCheckedAmount + splittedTaxAmount + totalCheckedAmount
+            tipPercentageAmount = (allItemsPriceAmount * Double(roundedTipPercent)!) / Double(numberOfPeopleLabel.text!)!
+            let splittedTaxAmount = (taxAmount * allItemsPriceAmount) / Double(numberOfPeopleLabel.text!)!
+            tipPercentageAddedTotalAmount = tipPercentageAmount + totalCheckedAmount
+            splittedTaxPlusTotalCheckedAmount = tipPercentageAddedTotalAmount + splittedTaxAmount
         } else {
             taxAmount = 0.0
             }
